@@ -1,3 +1,5 @@
+import { startBelt } from './animation.js';
+
 let beltbtn = document.getElementById('beltbtn');
 let beltcounter = 0;
 beltbtn.addEventListener('click', addBelt);
@@ -8,6 +10,7 @@ function addBelt() {
         let beltstart = document.createElement('button');
         beltstart.className = "btn btn-secondary col-2 my-auto";
         beltstart.innerHTML = "Start belt";
+        beltstart.addEventListener('click', startBelt(beltcounter));
         let newBelt = document.createElement('div');
         newBelt.className = "conveyorbelt col-10";
 
