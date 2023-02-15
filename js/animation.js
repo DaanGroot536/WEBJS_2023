@@ -1,6 +1,10 @@
+let intervals = new Array();
+
 export function animate(beltcounter) {
     localStorage.setItem('package'+beltcounter, 0);
-    setInterval(move, 10, beltcounter);
+    // setInterval(move, 10, beltcounter);
+    intervals[beltcounter] = setInterval(move, 10, beltcounter);
+    console.log(intervals[beltcounter]);
 }
 
 function move(beltcounter) {
@@ -9,6 +13,10 @@ function move(beltcounter) {
     let currentPosition = parseInt(localStorage.getItem('package'+beltcounter));
     currentPosition = currentPosition + 1;
     localStorage.setItem('package'+beltcounter, currentPosition);
-    console.log(currentPosition);
     node.style.left = currentPosition + "px";
+}
+
+export function stop(beltcounter) {
+    console.log(intervals[beltcounter], beltcounter);
+    clearInterval(intervals[beltcounter]);
 }
