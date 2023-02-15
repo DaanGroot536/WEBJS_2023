@@ -1,3 +1,3 @@
-export function startBelt(beltID) {
-    alert("hello");
-}   
+  export function animate(beltcounter) {
+    alert(beltcounter)
+}
