@@ -15,13 +15,18 @@ function addBelt() {
         beltstart.innerHTML = "Start belt "+(beltcounter);
         beltstart.addEventListener('click', (event) => {
             animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length-1));
+            beltstart.style.opacity = 0;
+            beltstop.style.opacity = 1;
         });
 
         let beltstop = document.createElement('button');
         beltstop.innerHTML = "Stop belt "+(beltcounter);
         beltstop.className = "btn btn-secondary mt-3";
+        beltstop.style.opacity = 0;
         beltstop.addEventListener('click', (event) => {
             stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length-1));
+            beltstart.style.opacity = 1;
+            beltstop.style.opacity = 0;
         });
 
         btndiv.appendChild(beltstart);
