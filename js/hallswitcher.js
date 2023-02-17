@@ -7,9 +7,11 @@ hallBtn.addEventListener('click', function () {
     if(hall2.style.display == 'none') {
         hall1.style.display = 'none';
         hall2.style.display = 'block';
+        document.body.style.backgroundColor = "#afd7fd";
     }
     else {
         hall2.style.display = 'none';
         hall1.style.display = 'block';
+        document.body.style.backgroundColor = "#affdcc";
     }
 });

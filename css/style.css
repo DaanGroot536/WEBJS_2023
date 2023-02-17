@@ -6,7 +6,10 @@
 .package {
     width: 100px;
     height: 100px;
-    border: solid 1px black;
     margin-top: 60px;
     position: relative;
+}
+
+body {
+    background-color: #affdcc;
 }
