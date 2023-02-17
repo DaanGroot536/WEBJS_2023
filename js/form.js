@@ -2,43 +2,43 @@ var currentTab = 0;
 setupForm();
 showTab(currentTab);
 
-const emailError = document.querySelector("#mail + span.error");
+let errorMessage;
 
-function showTab(n) {
+function showTab(tabIndex) {
 
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    var tabs = document.getElementsByClassName("tab");
+    tabs[tabIndex].style.display = "block";
 
     // fix Previous/Next buttons
-    if (n == 0) {
+    if (tabIndex == 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+    if (tabIndex == (tabs.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
 
     // update step indicator:
-    fixStepIndicator(n)
+    fixStepIndicator(tabIndex)
 }
 
-function nextPrev(n) {
+function nextPrev(directionIndex) {
 
     // get all tabs
-    var x = document.getElementsByClassName("tab");
+    var tabs = document.getElementsByClassName("tab");
 
     // check if input is valid when pressing 'next'
-    if (n == 1 && !validateForm()) return false;
+    if (directionIndex == 1 && !validateForm()) return false;
 
     // Hide current tab
-    x[currentTab].style.display = "none";
+    tabs[currentTab].style.display = "none";
 
-    currentTab = currentTab + n;
+    currentTab = currentTab + directionIndex;
 
-    if (currentTab >= x.length) {
+    if (currentTab >= tabs.length) {
         // handle data here
         return false;
     }
@@ -51,51 +51,51 @@ function validateForm() {
     var valid = true;
 
     // get current tab
-    var x = document.getElementsByClassName("tab");
+    var tabs = document.getElementsByClassName("tab");
 
     // get all fields in tab
-    var y = x[currentTab].getElementsByTagName("input");
+    var fields = tabs[currentTab].getElementsByTagName("input");
 
-    for (var i = 0; i < y.length; i++) {
+    for (var i = 0; i < fields.length; i++) {
 
         // check if empty
-        if (y[i].value == "") {
-            emailError.textContent = "You need to enter a value.";
-            y[i].className += " invalid";
+        if (fields[i].value == "") {
+            errorMessage.textContent = "You need to enter a value.";
+            fields[i].className += " invalid";
             valid = false;
             continue;
         }
 
         // for number fields, check if input between 1 and 5
-        if (y[i].type = "number" && (y[i].value <= 0 || y[i].value > 5)) {
-            emailError.textContent = "Entered value needs to be between 1 and 5.";
-            y[i].className += " invalid";
+        if (fields[i].type = "number" && (fields[i].value <= 0 || fields[i].value > 5)) {
+            errorMessage.textContent = "Entered value needs to be between 1 and 5.";
+            fields[i].className += " invalid";
             valid = false;
         }
     }
 
     // if all fields are valid, update step indicator
     if (valid) {
-        emailError.textContent = "";
-        emailError.className = "error";
+        errorMessage.textContent = "";
+        errorMessage.className = "error";
 
         document.getElementsByClassName("step")[currentTab].className += " finish";
     } else {
-        emailError.className = "error active";
+        errorMessage.className = "error active";
     }
 
     return valid;
 }
 
-function fixStepIndicator(n) {
+function fixStepIndicator(stepIndex) {
     // deactivate all steps
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+    var steps = document.getElementsByClassName("step");
+    for (var i = 0; i < steps.length; i++) {
+        steps[i].className = steps[i].className.replace(" active", "");
     }
 
     // activate current step
-    x[n].className += " active";
+    steps[stepIndex].className += " active";
 }
 
 function setupForm() {
