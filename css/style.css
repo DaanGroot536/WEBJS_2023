@@ -1,0 +1,15 @@
+.conveyorbelt {
+    height: 20vh;
+    border-bottom: 1px solid black;
+}
+
+.package {
+    width: 100px;
+    height: 100px;
+    margin-top: 60px;
+    position: relative;
+}
+
+body {
+    background-color: #affdcc;
+}
