@@ -1,12 +1,14 @@
-var currentTab = 0;
 setupForm();
-showTab(currentTab);
 
 let errorMessage;
+let currentTab = 0;
+showTab(currentTab);
+
+
 
 function showTab(tabIndex) {
 
-    var tabs = document.getElementsByClassName("tab");
+    let tabs = document.getElementsByClassName("tab");
     tabs[tabIndex].style.display = "block";
 
     // fix Previous/Next buttons
@@ -28,7 +30,7 @@ function showTab(tabIndex) {
 function nextPrev(directionIndex) {
 
     // get all tabs
-    var tabs = document.getElementsByClassName("tab");
+    let tabs = document.getElementsByClassName("tab");
 
     // check if input is valid when pressing 'next'
     if (directionIndex == 1 && !validateForm()) return false;
@@ -48,15 +50,15 @@ function nextPrev(directionIndex) {
 }
 
 function validateForm() {
-    var valid = true;
+    let valid = true;
 
     // get current tab
-    var tabs = document.getElementsByClassName("tab");
+    const tabs = document.getElementsByClassName("tab");
 
     // get all fields in tab
-    var fields = tabs[currentTab].getElementsByTagName("input");
+    let fields = tabs[currentTab].getElementsByTagName("input");
 
-    for (var i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i++) {
 
         // check if empty
         if (fields[i].value == "") {
@@ -89,8 +91,8 @@ function validateForm() {
 
 function fixStepIndicator(stepIndex) {
     // deactivate all steps
-    var steps = document.getElementsByClassName("step");
-    for (var i = 0; i < steps.length; i++) {
+    let steps = document.getElementsByClassName("step");
+    for (let i = 0; i < steps.length; i++) {
         steps[i].className = steps[i].className.replace(" active", "");
     }
 
