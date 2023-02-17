@@ -31,9 +31,22 @@
             </div>
         </div>
     </div>
-
+    <br>
+    <div id="dragcontainer" class="card card-body">
+        <div class="row ml-1">
+            <div class="dragtarget ml-3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="dragtarget ml-3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="dragtarget ml-3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+        <div id="dragpackages" class="row ml-1 mt-3">
+            <div id="drag1" draggable="true" ondragstart="drag(event)" class="dragpackage ml-3"></div>
+            <div id="drag1" draggable="true" ondragstart="drag(event)" class="dragpackage ml-3"></div>
+            <div id="drag1" draggable="true" ondragstart="drag(event)" class="dragpackage ml-3"></div>
+        </div>
+    </div>
 </body>
 <script type="module" src="js/beltmaker.js"></script>
 <script src="js/hallswitcher.js"></script>
+<script src="js/drag_and_drop.js"></script>
 
 </html>
