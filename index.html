@@ -13,15 +13,18 @@
 </head>
 
 <body>
-    <form id="regForm" action="/action_page.php">
+    <form id="regForm" novalidate>
         <h1>Register Truck:</h1>
         <!-- One "tab" for each step in the form -->
         <div class="tab">Dimensions:
             <p><input type="number" placeholder="Length (Y axis)" oninput="this.className = ''" name="length"></p>
+            <span class="error" aria-live="polite" id="lengtherror"></span>
             <p><input type="number" placeholder="Width (X axis)" oninput="this.className = ''" name="width"></p>
+            <span class="error" aria-live="polite" id="widtherror"></span>
         </div>
         <div class="tab">Truck Interval:
             <p><input type="number" placeholder="Seconds" oninput="this.className = ''" name="interval"></p>
+            <span class="error" aria-live="polite" id="intervalerror"></span>
         </div>
         <div class="tab">Load Type:
             <p>
