@@ -22,6 +22,11 @@ function addBelt2() {
     
 }
 
+//TODO:
+//make tetris shapes refresh after animate end
+//make new js file with mechanics to transfer canvas to truck
+//truck contents need to be stored in localStorage
+
 function addBelt(beltcounter, panel) {
     let beltpane = document.getElementById('beltpanel'+panel);
     let btndiv = document.createElement('div');
@@ -69,6 +74,7 @@ function addBelt(beltcounter, panel) {
     imageMaker.draw(rnd, beltItem);
 }
 
+//temp function to add trucks
 function addTrucks(beltRow, beltcounter) {
     let truck = document.createElement('div');
     truck.className = "col-3 truck";
