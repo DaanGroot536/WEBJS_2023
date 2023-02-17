@@ -35,11 +35,6 @@ function addBelt(beltcounter, panel) {
     let beltstart = document.createElement('button');
     beltstart.className = "btn btn-secondary mt-3";
     beltstart.innerHTML = "Start belt "+(beltcounter);
-    beltstart.addEventListener('click', (event) => {
-        animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length-1));
-        beltstart.style.opacity = 0;
-        beltstop.style.opacity = 1;
-    });
 
     let beltstop = document.createElement('button');
     beltstop.innerHTML = "Stop belt "+(beltcounter);
@@ -61,6 +56,16 @@ function addBelt(beltcounter, panel) {
     beltItem.className = "package";
     newBelt.appendChild(beltItem);
 
+    let imageMaker = new ImageMaker();
+    let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
+    imageMaker.draw(rnd, beltItem);
+
+    beltstart.addEventListener('click', (event) => {
+        animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length-1), imageMaker, beltItem);
+        beltstart.style.opacity = 0;
+        beltstop.style.opacity = 1;
+    });
+
     let beltRow = document.createElement('div');
     beltRow.className = "row mt-3";
     beltRow.appendChild(btndiv);
@@ -69,9 +74,6 @@ function addBelt(beltcounter, panel) {
     beltpane.appendChild(beltRow);
     beltcounter++;
 
-    let imageMaker = new ImageMaker();
-    let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
-    imageMaker.draw(rnd, beltItem);
 }
 
 //temp function to add trucks

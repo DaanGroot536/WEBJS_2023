@@ -1,6 +1,7 @@
 export default class ImageMaker {
 
     draw(shapeNumber, packageNode) {
+        console.log('working');
         let currCanvas = document.createElement('canvas');
         packageNode.appendChild(currCanvas);
         const ctx = currCanvas.getContext("2d");
