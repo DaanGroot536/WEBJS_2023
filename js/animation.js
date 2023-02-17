@@ -1,3 +1,5 @@
+//import { draw } from './imagemaker.js';
+
 let intervals = new Array();
 let positions = new Array();
 for (let i = 0; i < 6; i++) {

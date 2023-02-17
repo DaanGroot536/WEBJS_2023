@@ -1,4 +1,5 @@
 import { animate, stop } from './animation.js';
+import ImageMaker from './imagemaker.js';
 
 let beltbtn1 = document.getElementById('beltbtn1');
 let beltbtn2 = document.getElementById('beltbtn2');
@@ -48,6 +49,10 @@ function addBelt() {
         beltRow.appendChild(newBelt);
         beltpane.appendChild(beltRow);
         beltcounter++;
+
+        let imageMaker = new ImageMaker();
+        let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
+        imageMaker.draw(rnd, beltItem);
     }
     
 }
@@ -93,6 +98,10 @@ function addBelt2() {
         beltRow.appendChild(newBelt);
         beltpane.appendChild(beltRow);
         beltcounter2++;
+
+        let imageMaker = new ImageMaker();
+        let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
+        imageMaker.draw(rnd, beltItem);
     }
     
 }
