@@ -4,7 +4,17 @@ let errorMessage;
 let currentTab = 0;
 showTab(currentTab);
 
+function setupForm() {
+    // get all input fields that require validation
+    let inputFields = document.querySelectorAll("input");
 
+    // add an event listener to each input field to validate input
+    inputFields.forEach(function (elem) {
+        elem.addEventListener("input", () => {
+            validateForm();
+        });
+    });
+}
 
 function showTab(tabIndex) {
 
@@ -27,9 +37,23 @@ function showTab(tabIndex) {
     fixStepIndicator(tabIndex)
 
     // focus on input field
-    let fields = tabs[tabIndex].getElementsByTagName("input");
-    fields[0].focus();
+    let focusField = tabs[tabIndex].getElementsByTagName("input")[0]; 
+    if (focusField.type !== null) {
+        focusField.focus();
+    }
     
+    
+}
+
+function fixStepIndicator(stepIndex) {
+    // deactivate all steps
+    let steps = document.getElementsByClassName("step");
+    for (let i = 0; i < steps.length; i++) {
+        steps[i].className = steps[i].className.replace(" active", "");
+    }
+
+    // activate current step
+    steps[stepIndex].className += " active";
 }
 
 function nextPrev(directionIndex) {
@@ -47,6 +71,11 @@ function nextPrev(directionIndex) {
 
     if (currentTab >= tabs.length) {
         // handle data here
+
+        const form = document.getElementById('truckForm');
+        const formData = new FormData(form);
+        console.log(formData);
+
         return false;
     }
 
@@ -94,29 +123,6 @@ function validateForm() {
     }
 
     return valid;
-}
-
-function fixStepIndicator(stepIndex) {
-    // deactivate all steps
-    let steps = document.getElementsByClassName("step");
-    for (let i = 0; i < steps.length; i++) {
-        steps[i].className = steps[i].className.replace(" active", "");
-    }
-
-    // activate current step
-    steps[stepIndex].className += " active";
-}
-
-function setupForm() {
-    // get all input fields that require validation
-    let inputFields = document.querySelectorAll("input");
-
-    // add an event listener to each input field to validate input
-    inputFields.forEach(function (elem) {
-        elem.addEventListener("input", () => {
-            validateForm();
-        });
-    });
 }
 
 function onlyNumberKey(evt) {
