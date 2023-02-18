@@ -25,6 +25,11 @@ function showTab(tabIndex) {
 
     // update step indicator:
     fixStepIndicator(tabIndex)
+
+    // focus on input field
+    let fields = tabs[tabIndex].getElementsByTagName("input");
+    fields[0].focus();
+    
 }
 
 function nextPrev(directionIndex) {
