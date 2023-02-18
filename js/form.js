@@ -59,8 +59,8 @@ function validateForm() {
     let fields = tabs[currentTab].getElementsByTagName("input");
 
     for (let i = 0; i < fields.length; i++) {
-        
-        errorMessage = document.getElementById(fields[i].name +"error");
+
+        errorMessage = document.getElementById(fields[i].name + "error");
 
         // check if empty
         if (fields[i].value == "") {
@@ -78,7 +78,7 @@ function validateForm() {
             fields[i].className += " invalid";
             valid = false;
             continue;
-        }        
+        }
     }
 
     // if all fields are valid, update step indicator
@@ -112,4 +112,11 @@ function setupForm() {
             validateForm();
         });
     });
+}
+
+function onlyNumberKey(evt) {
+    var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+        return false;
+    return true;
 }
