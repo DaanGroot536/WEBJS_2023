@@ -21,16 +21,15 @@ export default class FormBuilder {
         });
 
         let buttons = document.querySelectorAll("#prevBtn, #nextBtn");
-        
-        // add an event listener to each button
-        for (let index = 0; index < buttons.length; index++) {
-            const element = buttons[index];
-            let directionID = element.id === "nextBtn" ? 1 : -1;
-            
-            element.addEventListener("click", () => {
+
+        buttons.forEach((elem) => {
+
+            let directionID = elem.id === "nextBtn" ? 1 : -1;
+
+            elem.addEventListener("click", (e) => {
                 this.nextPrev(directionID);
-            })
-        }
+            });
+        });
     }
 
     showTab(tabIndex) {
