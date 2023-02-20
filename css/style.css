@@ -15,9 +15,6 @@ body {
 }
 
 /* check everything below this */
-* {
-  box-sizing: border-box;
-}
 
 input,
 select {
@@ -45,11 +42,6 @@ input.invalid {
   opacity: 0.5;
 }
 
-.step-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
 .step.active {
   opacity: 1;
 }
@@ -62,10 +54,10 @@ input.invalid {
 .error {
   color: white;
   background-color: #cc0000;
-  border-radius: 0 0 5px 5px;
-  box-sizing: border-box;
+  border-radius: 5px 5px 0 0;
 }
 
 .error.active {
   padding: 0.3em;
+  transition: 0.1s, 0.2s;
 }
