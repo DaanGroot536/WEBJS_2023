@@ -17,19 +17,16 @@
         <h5 class="text-center">Register Truck:</h5>
         <div class="tab">Length (Y axis):
             <span class="error float-right" aria-live="polite" id="lengtherror"></span>
-            <p><input type="number" placeholder="Length" oninput="this.className = ''" name="length"
-                    onkeypress="return onlyNumberKey(event)"></p>
+            <p><input type="number" placeholder="Length" oninput="this.className = ''" name="length"></p>
             
         </div>
         <div class="tab">Width (X axis):
             <span class="error" aria-live="polite" id="widtherror"></span>
-            <p><input type="number" placeholder="Width" oninput="this.className = ''" name="width"
-                    onkeypress="return onlyNumberKey(event)"></p>
+            <p><input type="number" placeholder="Width" oninput="this.className = ''" name="width"></p>
         </div>
         <div class="tab">Truck Interval:
             <span class="error" aria-live="polite" id="intervalerror"></span>
-            <p><input type="number" placeholder="Seconds" oninput="this.className = ''" name="interval"
-                    onkeypress="return onlyNumberKey(event)"></p>
+            <p><input type="number" placeholder="Seconds" oninput="this.className = ''" name="interval"></p>
         </div>
         <div class="tab">Load Type:
             <p>
@@ -44,8 +41,8 @@
         </div>
         <div class="overflow-auto">
             <div class="float-right">
-                <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)">Next</button>
+                <button type="button" id="prevBtn" class="btn btn-secondary">Previous</button>
+                <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
             </div>
         </div>
 
@@ -81,6 +78,6 @@
 
 <script type="module" src="js/beltmaker.js"></script>
 <script src="js/hallswitcher.js"></script>
-<script src="js/form.js"></script>
+<script type="module" src="js/formBuilder.js"></script>
 
 </html>
