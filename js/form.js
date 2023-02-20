@@ -22,15 +22,22 @@ function showTab(tabIndex) {
     tabs[tabIndex].style.display = "block";
 
     // fix Previous/Next buttons
+
+    let prevBtn = document.getElementById("prevBtn");
+    let nextBtn = document.getElementById("nextBtn")
+
     if (tabIndex == 0) {
-        document.getElementById("prevBtn").style.display = "none";
+        prevBtn.style.display = "none";
     } else {
-        document.getElementById("prevBtn").style.display = "inline";
+        prevBtn.style.display = "inline";
     }
+
     if (tabIndex == (tabs.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        nextBtn.innerHTML = "Submit";
+        nextBtn.classList.replace("btn-primary", "btn-success");
     } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        nextBtn.innerHTML = "Next";
+        nextBtn.classList.replace("btn-success", "btn-primary");
     }
 
     // update step indicator:
@@ -124,6 +131,7 @@ function validateForm() {
     return valid;
 }
 
+// only allow numbers in number fields
 function onlyNumberKey(evt) {
     var ASCIICode = (evt.which) ? evt.which : evt.keyCode
     if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
