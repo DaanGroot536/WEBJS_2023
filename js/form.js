@@ -38,11 +38,10 @@ function showTab(tabIndex) {
 
     // focus on input field
     let focusField = tabs[tabIndex].getElementsByTagName("input")[0];
-    if (focusField.type !== null) {
+
+    if(focusField) {
         focusField.focus();
     }
-
-
 }
 
 function fixStepIndicator(stepIndex) {
