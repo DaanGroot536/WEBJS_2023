@@ -1,6 +1,4 @@
-//import { draw } from './imagemaker.js';
 import { movePackage } from "./packagemover.js";
-import ImageMaker from "./imagemaker.js";
 
 let intervals = new Array();
 let positions = new Array();
@@ -15,14 +13,12 @@ export function animate(beltcounter, imageMaker, beltItem) {
     else {
         localStorage.setItem('package'+beltcounter, 0);
     }
-    // setInterval(move, 10, beltcounter);
     intervals[beltcounter] = setInterval(move, 10, beltcounter, imageMaker, beltItem);
     console.log(screen.width * 0.75);
 }
 
 function move(beltcounter, imageMaker, beltItem) {
     let node = document.getElementById("package"+beltcounter);
-    // console.log(node, currentPosition);
     let currentPosition = parseInt(localStorage.getItem('package'+beltcounter));
 
     if(currentPosition < (screen.width * 0.5) ) {
