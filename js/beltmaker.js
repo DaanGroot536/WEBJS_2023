@@ -25,7 +25,6 @@ function addBelt2() {
 }
 
 //TODO:
-//make new js file with mechanics to transfer canvas to truck
 //truck contents need to be stored in localStorage
 
 function addBelt(beltcounter, panel) {

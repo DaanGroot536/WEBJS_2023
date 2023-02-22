@@ -33,7 +33,7 @@ export default class FormBuilder {
     }
 
     showTab(tabIndex) {
-
+        console.log(tabIndex);
         let tabs = document.getElementsByClassName("tab");
         tabs[tabIndex].style.display = "block";
 
@@ -50,10 +50,10 @@ export default class FormBuilder {
 
         if (tabIndex == (tabs.length - 1)) {
             nextBtn.innerHTML = "Submit";
-            nextBtn.classList.replace("btn-primary", "btn-success");
+            nextBtn.className = "btn btn-success";
         } else {
             nextBtn.innerHTML = "Next";
-            nextBtn.classList.replace("btn-success", "btn-primary");
+            nextBtn.className = "btn btn-primary";
         }
 
         // update step indicator:
@@ -82,7 +82,7 @@ export default class FormBuilder {
 
         if (currentTab >= tabs.length) {
             // handle data here
-
+            console.log('ello');
             const form = document.getElementById('truckForm');
             const formData = new FormData(form);
             console.log(formData);
