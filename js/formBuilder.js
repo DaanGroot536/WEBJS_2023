@@ -1,11 +1,14 @@
 import FormValidator from './formValidator.js';
 
 export default class FormBuilder {
-    constructor(currentTab, fv) {
+
+    currentTab = 0;
+
+    constructor(fv) {
         formValidator = fv;
 
         this.setupForm();
-        this.showTab(currentTab);
+        this.showTab(this.currentTab);
     }
 
     setupForm() {
@@ -13,9 +16,9 @@ export default class FormBuilder {
         let inputFields = document.querySelectorAll("input");
 
         // add an event listener to each input field to validate input
-        inputFields.forEach(function (elem) {
+        inputFields.forEach((elem) => {
             elem.addEventListener("input", (event) => {
-                formValidator.validateForm(currentTab);
+                formValidator.validateForm(this.currentTab);
                 formValidator.onlyNumberKey(event);
             });
         });
@@ -73,22 +76,25 @@ export default class FormBuilder {
         let tabs = document.getElementsByClassName("tab");
 
         // check if input is valid when pressing 'next'
-        if (directionIndex == 1 && !formValidator.validateForm(currentTab)) return false;
+        if (directionIndex == 1 && !formValidator.validateForm(this.currentTab)) return false;
 
         // Hide current tab
-        tabs[currentTab].style.display = "none";
+        tabs[this.currentTab].style.display = "none";
 
-        currentTab = currentTab + directionIndex;
+        this.currentTab = this.currentTab + directionIndex;
 
-        if (currentTab >= tabs.length) {
+        if (this.currentTab >= tabs.length) {
             // handle data here
 
+            
+            // reset form
+            this.resetForm();
 
             return false;
         }
 
         // move to next tab
-        this.showTab(currentTab);
+        this.showTab(this.currentTab);
     }
 
     fixStepIndicator(stepIndex) {
@@ -101,11 +107,28 @@ export default class FormBuilder {
         // activate current step
         steps[stepIndex].className += " active";
     }
+
+    resetForm() {
+        // empty all fields
+        document.getElementById("truckForm").reset();
+
+        // reset tab
+        this.currentTab = 0;
+        this.showTab(this.currentTab);
+
+        // reset step indicator
+        let steps = document.getElementsByClassName("step");
+
+        for (let i = 0; i < steps.length; i++) {
+            steps[i].className = steps[i].className.replace(" finish", "");
+        }
+
+        steps[0].className += " active";
+    }
 }
 
-let currentTab = 0;
 let formValidator = new FormValidator();
-new FormBuilder(currentTab, formValidator);
+new FormBuilder(formValidator);
 
 
 

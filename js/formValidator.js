@@ -45,8 +45,11 @@ export default class FormValidator {
     
         // if all fields are valid, update step indicator
         if (valid) {
-            errorMessage.textContent = "";
-            errorMessage.className = "error";
+            if(errorMessage) {
+                errorMessage.textContent = "";
+                errorMessage.className = "error";
+            }
+
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
     
