@@ -3,14 +3,15 @@ import ImageMaker from './imagemaker.js';
 
 let beltbtn1 = document.getElementById('beltbtn1');
 let beltbtn2 = document.getElementById('beltbtn2');
-let beltcounter = 0;
+let beltcounter1 = 0;
 let beltcounter2 = 3;
 beltbtn1.addEventListener('click', addBelt1);
 beltbtn2.addEventListener('click', addBelt2);
 
 function addBelt1() {
-    if(beltcounter < 3) {
-        addBelt(beltcounter, 1);
+    if(beltcounter1 < 3) {
+        addBelt(beltcounter1, 1);
+        beltcounter1++;
     }
     
 }
@@ -18,12 +19,12 @@ function addBelt1() {
 function addBelt2() {
     if(beltcounter2 < 6) {
         addBelt(beltcounter2, 2)
+        beltcounter2++;
     }
     
 }
 
 //TODO:
-//make tetris shapes refresh after animate end
 //make new js file with mechanics to transfer canvas to truck
 //truck contents need to be stored in localStorage
 
@@ -34,10 +35,10 @@ function addBelt(beltcounter, panel) {
 
     let beltstart = document.createElement('button');
     beltstart.className = "btn btn-secondary mt-3";
-    beltstart.innerHTML = "Start belt "+(beltcounter);
+    beltstart.innerHTML = "Start belt "+beltcounter;
 
     let beltstop = document.createElement('button');
-    beltstop.innerHTML = "Stop belt "+(beltcounter);
+    beltstop.innerHTML = "Stop belt "+beltcounter;
     beltstop.className = "btn btn-secondary mt-3";
     beltstop.style.opacity = 0;
     beltstop.addEventListener('click', (event) => {
@@ -58,7 +59,7 @@ function addBelt(beltcounter, panel) {
 
     let imageMaker = new ImageMaker();
     let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
-    imageMaker.draw(rnd, beltItem);
+    imageMaker.draw(rnd, beltItem, beltcounter);
 
     beltstart.addEventListener('click', (event) => {
         animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length-1), imageMaker, beltItem);

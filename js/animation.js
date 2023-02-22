@@ -31,8 +31,10 @@ function move(beltcounter, imageMaker, beltItem) {
     }
     else {
         localStorage.setItem('package'+beltcounter, 0);
+        let viewItem = document.getElementById('canvas'+beltcounter);
+        viewItem.remove();
         let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
-        imageMaker.draw(rnd, beltItem);
+        imageMaker.draw(rnd, beltItem, beltcounter);
     }
 
 }
