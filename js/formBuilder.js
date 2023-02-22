@@ -12,28 +12,31 @@ export default class FormBuilder {
     }
 
     setupForm() {
-        // get all input fields that require validation
-        let inputFields = document.querySelectorAll("input");
+        const inputElements = document.querySelectorAll("input");
+    
+        // Add event listeners to input fields to automatically validate input
+        const handleInput = (event) => {
+            formValidator.validateForm(this.currentTab);
+            formValidator.preventNonNumericInput(event);
+        };
 
-        // add an event listener to each input field to validate input
-        inputFields.forEach((elem) => {
-            elem.addEventListener("input", (event) => {
-                formValidator.validateForm(this.currentTab);
-                formValidator.onlyNumberKey(event);
-            });
+        inputElements.forEach((inputElement) => {
+            inputElement.addEventListener("input", handleInput);
         });
-
-        let buttons = document.querySelectorAll("#prevBtn, #nextBtn");
-
-        buttons.forEach((elem) => {
-
-            let directionID = elem.id === "nextBtn" ? 1 : -1;
-
-            elem.addEventListener("click", (e) => {
-                this.nextPrev(directionID);
-            });
+    
+        const navigationButtons = document.querySelectorAll("#prevBtn, #nextBtn");
+    
+        // Add event listeners to navigation buttons to handle updating buttons and tabs
+        const handleNavigationButtonClick = (event) => {
+            const directionID = event.target.id === "nextBtn" ? 1 : -1;
+            this.nextPrev(directionID);
+        };
+        
+        navigationButtons.forEach((navigationButton) => {
+            navigationButton.addEventListener("click", handleNavigationButtonClick);
         });
     }
+    
 
     showTab(tabIndex) {
 
@@ -133,14 +136,8 @@ export default class FormBuilder {
         }
 
         window.localStorage.setItem("truck", JSON.stringify(truck));
-
-        let printedTruck = window.localStorage.getItem("truck");
-        console.log(JSON.parse(printedTruck));
     }
 }
 
 let formValidator = new FormValidator();
 new FormBuilder(formValidator);
-
-
-
