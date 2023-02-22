@@ -13,7 +13,7 @@ export default class FormBuilder {
 
     setupForm() {
         const inputElements = document.querySelectorAll("input");
-    
+
         // Add event listeners to input fields to automatically validate input
         const handleInput = (event) => {
             formValidator.validateForm(this.currentTab);
@@ -23,20 +23,20 @@ export default class FormBuilder {
         inputElements.forEach((inputElement) => {
             inputElement.addEventListener("input", handleInput);
         });
-    
+
         const navigationButtons = document.querySelectorAll("#prevBtn, #nextBtn");
-    
+
         // Add event listeners to navigation buttons to handle updating buttons and tabs
         const handleNavigationButtonClick = (event) => {
             const directionID = event.target.id === "nextBtn" ? 1 : -1;
             this.nextPrev(directionID);
         };
-        
+
         navigationButtons.forEach((navigationButton) => {
             navigationButton.addEventListener("click", handleNavigationButtonClick);
         });
     }
-    
+
 
     showTab(tabIndex) {
 
@@ -62,7 +62,7 @@ export default class FormBuilder {
         }
 
         // update step indicator:
-        this.fixStepIndicator(tabIndex)
+        this.updateStepIndicator(tabIndex)
 
         // focus on input field
         let focusField = tabs[tabIndex].getElementsByTagName("input")[0];
@@ -96,16 +96,17 @@ export default class FormBuilder {
         this.showTab(this.currentTab);
     }
 
-    fixStepIndicator(stepIndex) {
-        // deactivate all steps
-        let steps = document.getElementsByClassName("step");
-        for (let i = 0; i < steps.length; i++) {
-            steps[i].className = steps[i].className.replace(" active", "");
-        }
+    updateStepIndicator(stepIndex) {
+        // Deactivate all steps
+        const steps = document.querySelectorAll(".step");
+        steps.forEach((step) => {
+            step.classList.remove("active");
+        });
 
-        // activate current step
-        steps[stepIndex].className += " active";
+        // Activate current step
+        steps[stepIndex].classList.add("active");
     }
+
 
     resetForm() {
         // empty all fields
