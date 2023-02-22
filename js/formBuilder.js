@@ -83,9 +83,6 @@ export default class FormBuilder {
         if (currentTab >= tabs.length) {
             // handle data here
 
-            const form = document.getElementById('truckForm');
-            const formData = new FormData(form);
-            console.log(formData);
 
             return false;
         }
