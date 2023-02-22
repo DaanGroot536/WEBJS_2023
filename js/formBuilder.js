@@ -40,32 +40,23 @@ export default class FormBuilder {
 
     showTab(tabIndex) {
 
-        let tabs = document.getElementsByClassName("tab");
+        const tabs = document.getElementsByClassName("tab");
         tabs[tabIndex].style.display = "block";
 
         // fix Previous/Next buttons
-        let prevBtn = document.getElementById("prevBtn");
-        let nextBtn = document.getElementById("nextBtn")
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn")
 
-        if (tabIndex == 0) {
-            prevBtn.style.display = "none";
-        } else {
-            prevBtn.style.display = "inline";
-        }
-
-        if (tabIndex == (tabs.length - 1)) {
-            nextBtn.innerHTML = "Submit";
-            nextBtn.classList.replace("btn-primary", "btn-success");
-        } else {
-            nextBtn.innerHTML = "Next";
-            nextBtn.classList.replace("btn-success", "btn-primary");
-        }
+        prevBtn.style.display = (tabIndex == 0) ? "none" : "inline";
+        nextBtn.innerHTML = (tabIndex == tabs.length - 1) ? "Submit" : "Next";
+        nextBtn.classList.toggle("btn-primary", tabIndex != tabs.length - 1);
+        nextBtn.classList.toggle("btn-success", tabIndex == tabs.length - 1);
 
         // update step indicator:
-        this.updateStepIndicator(tabIndex)
+        this.updateStepIndicator(tabIndex);
 
         // focus on input field
-        let focusField = tabs[tabIndex].getElementsByTagName("input")[0];
+        const focusField = tabs[tabIndex].getElementsByTagName("input")[0];
 
         if (focusField) {
             focusField.focus();
@@ -75,20 +66,21 @@ export default class FormBuilder {
     nextPrev(directionIndex) {
 
         // get all tabs
-        let tabs = document.getElementsByClassName("tab");
+        const tabs = document.getElementsByClassName("tab");
 
         // check if input is valid when pressing 'next'
-        if (directionIndex == 1 && !formValidator.validateForm(this.currentTab)) return false;
+        if (directionIndex === 1 && !formValidator.validateForm(this.currentTab)) {
+            return false;
+        }
 
         // Hide current tab
         tabs[this.currentTab].style.display = "none";
 
-        this.currentTab = this.currentTab + directionIndex;
+        this.currentTab += directionIndex;
 
-        if (this.currentTab >= tabs.length) {
+        if (this.currentTab === tabs.length) {
             this.submitTruck();
             this.resetForm();
-
             return false;
         }
 
@@ -109,34 +101,40 @@ export default class FormBuilder {
 
 
     resetForm() {
-        // empty all fields
-        document.getElementById("truckForm").reset();
+        // Empty all fields
+        document.querySelector("#truckForm").reset();
 
-        // reset tab
+        // Reset tab
         this.currentTab = 0;
         this.showTab(this.currentTab);
 
-        // reset step indicator
-        let steps = document.getElementsByClassName("step");
+        // Reset step indicator
+        const steps = document.querySelectorAll(".step");
+        steps.forEach((step) => {
+            step.classList.remove("finish", "active");
+        });
 
-        for (let i = 0; i < steps.length; i++) {
-            steps[i].className = steps[i].className.replace(" finish", "");
-        }
-
-        steps[0].className += " active";
+        steps[0].classList.add("active");
     }
 
     submitTruck() {
-        let numericData = document.querySelectorAll("input");
-        let loadType = document.getElementById("trucktype");
-        const truck = {
-            length: numericData[0].value,
-            width: numericData[1].value,
-            interval: numericData[2].value,
-            type: loadType.value
-        }
+        const lengthInput = document.querySelector("#length");
+        const widthInput = document.querySelector("#width");
+        const intervalInput = document.querySelector("#interval");
+        const loadTypeInput = document.querySelector("#trucktype");
 
-        window.localStorage.setItem("truck", JSON.stringify(truck));
+        const truck = {
+            length: lengthInput.value,
+            width: widthInput.value,
+            interval: intervalInput.value,
+            type: loadTypeInput.value
+        };
+
+        try {
+            window.localStorage.setItem("truck", JSON.stringify(truck));
+        } catch (e) {
+            console.error("Error storing truck data:", e);
+        }
     }
 }
 
