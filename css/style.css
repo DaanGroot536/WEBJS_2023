@@ -19,3 +19,8 @@
 body {
     background-color: #affdcc;
 }
+
+.movedPackage {
+    position: absolute;
+    border: solid 1px black;
+}

@@ -1,4 +1,5 @@
 //import { draw } from './imagemaker.js';
+import { movePackage } from "./packagemover.js";
 import ImageMaker from "./imagemaker.js";
 
 let intervals = new Array();
@@ -30,6 +31,7 @@ function move(beltcounter, imageMaker, beltItem) {
         node.style.left = currentPosition + "px";
     }
     else {
+        movePackage(beltcounter);
         localStorage.setItem('package'+beltcounter, 0);
         let viewItem = document.getElementById('canvas'+beltcounter);
         viewItem.remove();
