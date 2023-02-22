@@ -41,7 +41,6 @@ export default class FormBuilder {
         tabs[tabIndex].style.display = "block";
 
         // fix Previous/Next buttons
-
         let prevBtn = document.getElementById("prevBtn");
         let nextBtn = document.getElementById("nextBtn")
 
@@ -84,10 +83,7 @@ export default class FormBuilder {
         this.currentTab = this.currentTab + directionIndex;
 
         if (this.currentTab >= tabs.length) {
-            // handle data here
-
-            
-            // reset form
+            this.submitTruck();
             this.resetForm();
 
             return false;
@@ -124,6 +120,22 @@ export default class FormBuilder {
         }
 
         steps[0].className += " active";
+    }
+
+    submitTruck() {
+        let numericData = document.querySelectorAll("input");
+        let loadType = document.getElementById("trucktype");
+        const truck = {
+            length: numericData[0].value,
+            width: numericData[1].value,
+            interval: numericData[2].value,
+            type: loadType.value
+        }
+
+        window.localStorage.setItem("truck", JSON.stringify(truck));
+
+        let printedTruck = window.localStorage.getItem("truck");
+        console.log(JSON.parse(printedTruck));
     }
 }
 
