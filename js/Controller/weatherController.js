@@ -1,3 +1,5 @@
+import { WeatherModel } from '../Model/api.js';
+
 class weatherController {
     weatherButton = document.querySelector("#weatherBtn");
     cityInput = document.querySelector("#city-input");
@@ -16,7 +18,7 @@ class weatherController {
     }
 
     getLocalWeather() {
-
+        
     }
 }
 
