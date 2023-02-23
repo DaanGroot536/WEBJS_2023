@@ -1,3 +1,5 @@
+import { makeDraggable } from "./draganddrop.js";
+
 export default class ImageMaker {
 
     draw(shapeNumber, packageNode, beltcounter) {
@@ -6,6 +8,7 @@ export default class ImageMaker {
         currCanvas.id = "canvas"+beltcounter;
         packageNode.appendChild(currCanvas);
         currCanvas.width = 120;
+        makeDraggable(currCanvas);
         const ctx = currCanvas.getContext("2d");
         switch (shapeNumber) {
             case 0:

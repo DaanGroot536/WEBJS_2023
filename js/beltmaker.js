@@ -1,4 +1,5 @@
 import { animate, stop } from './animation.js';
+import { makeDropzone } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 
 let beltbtn1 = document.getElementById('beltbtn1');
@@ -81,5 +82,6 @@ function addTrucks(beltRow, beltcounter) {
     let truck = document.createElement('div');
     truck.className = "col-3 truck";
     truck.id = "truck"+beltcounter;
+    makeDropzone(truck);
     beltRow.appendChild(truck);
 }
