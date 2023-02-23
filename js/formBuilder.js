@@ -45,7 +45,7 @@ export default class FormBuilder {
 
         // fix Previous/Next buttons
         const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn")
+        const nextBtn = document.getElementById("nextBtn");
 
         prevBtn.style.display = (tabIndex == 0) ? "none" : "inline";
         nextBtn.innerHTML = (tabIndex == tabs.length - 1) ? "Submit" : "Next";
