@@ -13,29 +13,28 @@
 
 <body>
 
-    <form class="card card-body mt-3 ml-3 w-25">
+    <form id="truckForm" class="card card-body mt-3 ml-3 w-25">
         <h5 class="text-center">Register Truck:</h5>
         <div class="tab">Length (Y axis):
             <span class="error float-right" aria-live="polite" id="lengtherror"></span>
-            <p><input type="number" placeholder="Length" oninput="this.className = ''" name="length"></p>
-            
+            <p><input type="number" placeholder="Length" oninput="this.className = ''" id="length" name="length"></p>
         </div>
         <div class="tab">Width (X axis):
             <span class="error" aria-live="polite" id="widtherror"></span>
-            <p><input type="number" placeholder="Width" oninput="this.className = ''" name="width"></p>
+            <p><input type="number" placeholder="Width" oninput="this.className = ''" id="width" name="width"></p>
         </div>
         <div class="tab">Truck Interval:
             <span class="error" aria-live="polite" id="intervalerror"></span>
-            <p><input type="number" placeholder="Seconds" oninput="this.className = ''" name="interval"></p>
+            <p><input type="number" placeholder="Seconds" oninput="this.className = ''" id="interval" name="interval"></p>
         </div>
         <div class="tab">Load Type:
             <p>
-                <select name="cars" id="cars">
-                    <option value="Cold transport">Cold transport</option>
-                    <option value="Fragile transport">Fragile transport</option>
-                    <option value="General transport">General transport</option>
-                    <option value="Quick transport">Quick transport</option>
-                    <option value="Pallet transport">Pallet transport</option>
+                <select id="trucktype">
+                    <option value="cold">Cold transport</option>
+                    <option value="fragile">Fragile transport</option>
+                    <option value="general">General transport</option>
+                    <option value="quick">Quick transport</option>
+                    <option value="pallet">Pallet transport</option>
                 </select>
             </p>
         </div>

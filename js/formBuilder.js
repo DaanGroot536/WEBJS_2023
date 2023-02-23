@@ -1,66 +1,62 @@
 import FormValidator from './formValidator.js';
 
 export default class FormBuilder {
-    constructor(currentTab, fv) {
+
+    currentTab = 0;
+
+    constructor(fv) {
         formValidator = fv;
 
         this.setupForm();
-        this.showTab(currentTab);
+        this.showTab(this.currentTab);
     }
 
     setupForm() {
-        // get all input fields that require validation
-        let inputFields = document.querySelectorAll("input");
+        const inputElements = document.querySelectorAll("input");
 
-        // add an event listener to each input field to validate input
-        inputFields.forEach(function (elem) {
-            elem.addEventListener("input", (event) => {
-                formValidator.validateForm(currentTab);
-                formValidator.onlyNumberKey(event);
-            });
+        // Add event listeners to input fields to automatically validate input
+        const handleInput = (event) => {
+            formValidator.validateForm(this.currentTab);
+            formValidator.preventNonNumericInput(event);
+        };
+
+        inputElements.forEach((inputElement) => {
+            inputElement.addEventListener("input", handleInput);
         });
 
-        let buttons = document.querySelectorAll("#prevBtn, #nextBtn");
+        const navigationButtons = document.querySelectorAll("#prevBtn, #nextBtn");
 
-        buttons.forEach((elem) => {
+        // Add event listeners to navigation buttons to handle updating buttons and tabs
+        const handleNavigationButtonClick = (event) => {
+            const directionID = event.target.id === "nextBtn" ? 1 : -1;
+            this.nextPrev(directionID);
+        };
 
-            let directionID = elem.id === "nextBtn" ? 1 : -1;
-
-            elem.addEventListener("click", (e) => {
-                this.nextPrev(directionID);
-            });
+        navigationButtons.forEach((navigationButton) => {
+            navigationButton.addEventListener("click", handleNavigationButtonClick);
         });
     }
 
+
     showTab(tabIndex) {
-        console.log(tabIndex);
-        let tabs = document.getElementsByClassName("tab");
+
+        const tabs = document.getElementsByClassName("tab");
         tabs[tabIndex].style.display = "block";
 
         // fix Previous/Next buttons
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
 
-        let prevBtn = document.getElementById("prevBtn");
-        let nextBtn = document.getElementById("nextBtn")
-
-        if (tabIndex == 0) {
-            prevBtn.style.display = "none";
-        } else {
-            prevBtn.style.display = "inline";
-        }
-
-        if (tabIndex == (tabs.length - 1)) {
-            nextBtn.innerHTML = "Submit";
-            nextBtn.className = "btn btn-success";
-        } else {
-            nextBtn.innerHTML = "Next";
-            nextBtn.className = "btn btn-primary";
-        }
+        prevBtn.style.display = (tabIndex == 0) ? "none" : "inline";
+        nextBtn.innerHTML = (tabIndex == tabs.length - 1) ? "Submit" : "Next";
+        nextBtn.classList.toggle("btn-primary", tabIndex != tabs.length - 1);
+        nextBtn.classList.toggle("btn-success", tabIndex == tabs.length - 1);
 
         // update step indicator:
-        this.fixStepIndicator(tabIndex)
+        this.updateStepIndicator(tabIndex);
 
         // focus on input field
-        let focusField = tabs[tabIndex].getElementsByTagName("input")[0];
+        const focusField = tabs[tabIndex].getElementsByTagName("input")[0];
 
         if (focusField) {
             focusField.focus();
@@ -70,45 +66,77 @@ export default class FormBuilder {
     nextPrev(directionIndex) {
 
         // get all tabs
-        let tabs = document.getElementsByClassName("tab");
+        const tabs = document.getElementsByClassName("tab");
 
         // check if input is valid when pressing 'next'
-        if (directionIndex == 1 && !formValidator.validateForm(currentTab)) return false;
+        if (directionIndex === 1 && !formValidator.validateForm(this.currentTab)) {
+            return false;
+        }
 
         // Hide current tab
-        tabs[currentTab].style.display = "none";
+        tabs[this.currentTab].style.display = "none";
 
-        currentTab = currentTab + directionIndex;
+        this.currentTab += directionIndex;
 
-        if (currentTab >= tabs.length) {
-            // handle data here
-            console.log('ello');
-            const form = document.getElementById('truckForm');
-            const formData = new FormData(form);
-            console.log(formData);
-
+        if (this.currentTab === tabs.length) {
+            this.submitTruck();
+            this.resetForm();
             return false;
         }
 
         // move to next tab
-        this.showTab(currentTab);
+        this.showTab(this.currentTab);
     }
 
-    fixStepIndicator(stepIndex) {
-        // deactivate all steps
-        let steps = document.getElementsByClassName("step");
-        for (let i = 0; i < steps.length; i++) {
-            steps[i].className = steps[i].className.replace(" active", "");
-        }
+    updateStepIndicator(stepIndex) {
+        // Deactivate all steps
+        const steps = document.querySelectorAll(".step");
+        steps.forEach((step) => {
+            step.classList.remove("active");
+        });
 
-        // activate current step
-        steps[stepIndex].className += " active";
+        // Activate current step
+        steps[stepIndex].classList.add("active");
+    }
+
+
+    resetForm() {
+        // Empty all fields
+        document.querySelector("#truckForm").reset();
+
+        // Reset tab
+        this.currentTab = 0;
+        this.showTab(this.currentTab);
+
+        // Reset step indicator
+        const steps = document.querySelectorAll(".step");
+        steps.forEach((step) => {
+            step.classList.remove("finish", "active");
+        });
+
+        steps[0].classList.add("active");
+    }
+
+    submitTruck() {
+        const lengthInput = document.querySelector("#length");
+        const widthInput = document.querySelector("#width");
+        const intervalInput = document.querySelector("#interval");
+        const loadTypeInput = document.querySelector("#trucktype");
+
+        const truck = {
+            length: lengthInput.value,
+            width: widthInput.value,
+            interval: intervalInput.value,
+            type: loadTypeInput.value
+        };
+
+        try {
+            window.localStorage.setItem("truck", JSON.stringify(truck));
+        } catch (e) {
+            console.error("Error storing truck data:", e);
+        }
     }
 }
 
-let currentTab = 0;
 let formValidator = new FormValidator();
-new FormBuilder(currentTab, formValidator);
-
-
-
+new FormBuilder(formValidator);

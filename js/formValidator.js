@@ -1,55 +1,52 @@
 export default class FormValidator {
-    constructor () {
-        
+    constructor() {
+
     }
-    
-    onlyNumberKey(evt) {
-        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-            return false;
-        return true;
+
+    // only allows numbers to be entered
+    preventNonNumericInput(evt) {
+        const key = evt.key;
+        if (/\D/.test(key)) {
+            evt.preventDefault();
+        }
     }
 
     validateForm(currentTab) {
         let valid = true;
-        let errorMessage;
     
-        // get current tab
-        const tabs = document.getElementsByClassName("tab");
+        const currentTabElement = document.getElementsByClassName("tab")[currentTab];
+        const inputElement = currentTabElement.getElementsByTagName("input")[0];
     
-        // get all fields in tab
-        let fields = tabs[currentTab].getElementsByTagName("input");
+        if (!inputElement) return valid;
     
-        for (let i = 0; i < fields.length; i++) {
-    
-            errorMessage = document.getElementById(fields[i].name + "error");
-    
-            // check if empty
-            if (fields[i].value == "") {
-                errorMessage.textContent = "You need to enter a value.";
-                errorMessage.className = "error active";
-                fields[i].className += " invalid";
-                valid = false;
-                continue;
+        const errorMessageElement = document.getElementById(`${inputElement.name}error`);
+
+        function validateInputValue() {
+            if (inputElement.value === "") {
+                errorMessageElement.textContent = "You need to enter a value.";
+                return false;
+            } else if (inputElement.value <= 0 || inputElement.value > 5) {
+                errorMessageElement.textContent = "Entered value needs to be between 1 and 5.";
+                return false;
             }
-    
-            // for number fields, check if input between 1 and 5
-            if (fields[i].type = "number" && (fields[i].value <= 0 || fields[i].value > 5)) {
-                errorMessage.textContent = "Entered value needs to be between 1 and 5.";
-                errorMessage.className = "error active";
-                fields[i].className += " invalid";
-                valid = false;
-                continue;
-            }
+            return true;
         }
     
-        // if all fields are valid, update step indicator
-        if (valid) {
-            errorMessage.textContent = "";
-            errorMessage.className = "error";
-            document.getElementsByClassName("step")[currentTab].className += " finish";
+        if (validateInputValue()) {
+            // hide error message
+            errorMessageElement.textContent = "";
+            errorMessageElement.classList.remove("active");
+    
+            // update step indicator
+            document.getElementsByClassName("step")[currentTab].classList.add("finish");
+        } else {
+            // show error message
+            errorMessageElement.classList.add("active");
+            inputElement.classList.add("invalid");
+    
+            valid = false;
         }
     
         return valid;
-    }
+    }    
 }
