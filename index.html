@@ -13,8 +13,8 @@
 
 <body>
 
-    <div class="card-columns w-100">
-        <form id="truckForm" class="card card-body mt-3 ml-3 w-75">
+    <div class="row ml-3">
+        <form id="truckForm" class="card card-body mt-3 col-3">
             <h5 class="text-center">Register Truck:</h5>
             <div class="tab">Length (Y axis):
                 <span class="error float-right" aria-live="polite" id="lengtherror"></span>
@@ -56,7 +56,7 @@
             </div>
         </form>
 
-        <form id="weatherForm" class="card card-body mt-3 ml-3 w-75">
+        <form id="weatherForm" class="card card-body mt-3 ml-3 col-3">
             <h5 class="text-center">Check Weather:</h5>
             <div>City:
                 <span class="error float-right" aria-live="polite" id="cityerror"></span>
@@ -71,7 +71,8 @@
             </div>
 
             <div class="text-center">
-                <span class="result"></span>
+                <h3 id="temp"></h1>
+                <h5 id="description"></h3>
             </div>
         </form>
     </div>
@@ -102,5 +103,6 @@
 <script type="module" src="js/beltmaker.js"></script>
 <script src="js/hallswitcher.js"></script>
 <script type="module" src="js/formBuilder.js"></script>
+<script type="module" src="js/Controller/weatherController.js"></script>
 
 </html>
