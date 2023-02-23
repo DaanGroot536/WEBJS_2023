@@ -1,10 +1,21 @@
 class weatherController {
-    key = '5fd95cd07d4497355ddf9030a99b491d';
-    weatherInput = document.querySelector("#weatherBtn");
+    weatherButton = document.querySelector("#weatherBtn");
     cityInput = document.querySelector("#city-input");
     error = document.querySelector("#cityerror");
 
-    constructor () {
+    constructor() {
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        if(this.weatherButton) {
+            this.weatherButton.addEventListener("click", () => {
+                this.getLocalWeather();
+            })
+        }
+    }
+
+    getLocalWeather() {
 
     }
 }
