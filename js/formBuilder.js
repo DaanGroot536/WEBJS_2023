@@ -1,4 +1,6 @@
 import FormValidator from './formValidator.js';
+import { currentHall } from './hallswitcher.js';
+import { addBelt1, addBelt2 } from './beltmaker.js';
 
 export default class FormBuilder {
 
@@ -129,6 +131,13 @@ export default class FormBuilder {
             interval: intervalInput.value,
             type: loadTypeInput.value
         };
+
+        if (currentHall === 1) {
+            addBelt1();
+        }
+        else {
+            addBelt2();
+        }
 
         try {
             window.localStorage.setItem("truck", JSON.stringify(truck));
