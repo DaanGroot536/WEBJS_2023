@@ -1,80 +1,67 @@
 import { makeDraggable } from "./draganddrop.js";
 
 export default class ImageMaker {
+    RECTANGLE_SIZE = 25;
+    SHAPES = [
+        {
+            color: "rgb(200, 0, 0)",
+            coords: [
+                [10, 36],
+                [36, 36],
+                [36, 62],
+                [62, 62],
+            ],
+        },
+        {
+            color: "rgb(0, 200, 0)",
+            coords: [
+                [36, 10],
+                [36, 36],
+                [36, 62],
+                [62, 62],
+            ],
+        },
+        {
+            color: "rgb(0, 0, 200)",
+            coords: [
+                [10, 62],
+                [36, 36],
+                [36, 62],
+                [62, 62],
+            ],
+        },
+        {
+            color: "rgb(0, 200, 200)",
+            coords: [
+                [36, 36],
+                [36, 62],
+                [62, 36],
+                [62, 62],
+            ],
+        },
+        {
+            color: "rgb(200, 0, 200)",
+            coords: [
+                [10, 62],
+                [36, 62],
+                [62, 62],
+                [88, 62],
+            ],
+        },
+    ];
 
     draw(shapeNumber, packageNode, beltcounter) {
-        console.log('working');
-        let currCanvas = document.createElement('canvas');
-        currCanvas.id = "canvas"+beltcounter;
-        packageNode.appendChild(currCanvas);
-        currCanvas.width = 120;
-        makeDraggable(currCanvas);
-        const ctx = currCanvas.getContext("2d");
-        switch (shapeNumber) {
-            case 0:
-                ctx.fillStyle = "rgb(200, 0, 0)";
-                ctx.fillRect(10, 36, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 0)";
-                ctx.fillRect(36, 36, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 0)";
-                ctx.fillRect(36, 62, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 0)";
-                ctx.fillRect(62, 62, 25, 25);
-                storePackage(beltcounter, 0);
-                break;
+        const currentCanvas = document.createElement("canvas");
+        currentCanvas.id = `canvas${beltcounter}`;
+        packageNode.appendChild(currentCanvas);
+        const ctx = currentCanvas.getContext("2d");
 
-            case 1:
-                ctx.fillStyle = "rgb(0, 200, 0)";
-                ctx.fillRect(36, 62, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 0)";
-                ctx.fillRect(36, 10, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 0)";
-                ctx.fillRect(36, 36, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 0)";
-                ctx.fillRect(62, 62, 25, 25);
-                storePackage(beltcounter, 1);
-                break;
+        const { color, coords } = this.SHAPES[shapeNumber];
 
-            case 2:
-                ctx.fillStyle = "rgb(0, 0, 200)";
-                ctx.fillRect(10, 62, 25, 25);
-                ctx.fillStyle = "rgb(0, 0, 200)";
-                ctx.fillRect(36, 36, 25, 25);
-                ctx.fillStyle = "rgb(0, 0, 200)";
-                ctx.fillRect(36, 62, 25, 25);
-                ctx.fillStyle = "rgb(0, 0, 200)";
-                ctx.fillRect(62, 62, 25, 25);
-                storePackage(beltcounter, 2);
-                break;
-
-            case 3:
-                ctx.fillStyle = "rgb(0, 200, 200)";
-                ctx.fillRect(62, 36, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 200)";
-                ctx.fillRect(36, 36, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 200)";
-                ctx.fillRect(36, 62, 25, 25);
-                ctx.fillStyle = "rgb(0, 200, 200)";
-                ctx.fillRect(62, 62, 25, 25);
-                storePackage(beltcounter, 3);
-                break;
-
-            case 4:
-                ctx.fillStyle = "rgb(200, 0, 200)";
-                ctx.fillRect(10, 62, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 200)";
-                ctx.fillRect(88, 62, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 200)";
-                ctx.fillRect(36, 62, 25, 25);
-                ctx.fillStyle = "rgb(200, 0, 200)";
-                ctx.fillRect(62, 62, 25, 25);
-                storePackage(beltcounter, 4);
-                break;
-        }
+        ctx.fillStyle = color;
+        coords.forEach(([x, y]) => {
+            ctx.fillRect(x, y, this.RECTANGLE_SIZE, this.RECTANGLE_SIZE);
+        });
     }
 
-}
-
-function storePackage(beltcounter, shapeNumber) {
-        localStorage.setItem("package"+beltcounter, shapeNumber);
 }

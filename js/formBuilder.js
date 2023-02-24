@@ -14,7 +14,7 @@ export default class FormBuilder {
     }
 
     setupForm() {
-        const inputElements = document.querySelectorAll("input");
+        const inputElements = document.forms["truckForm"].querySelectorAll("input");
 
         // Add event listeners to input fields to automatically validate input
         const handleInput = (event) => {
