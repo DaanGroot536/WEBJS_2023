@@ -1,4 +1,5 @@
 import { movePackage } from "./packagemover.js";
+import { checkTruckContent } from "./truckmanager.js";
 
 let intervals = new Array();
 let positions = new Array();
@@ -33,12 +34,20 @@ function move(beltcounter, imageMaker, beltItem) {
         viewItem.remove();
         let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
         imageMaker.draw(rnd, beltItem, beltcounter);
+        checkTruckContent(beltcounter);
     }
 
 }
 
 export function stop(beltcounter) {
-    console.log(intervals[beltcounter], beltcounter);
-    positions[beltcounter] = localStorage.getItem('package'+beltcounter);
-    clearInterval(intervals[beltcounter]);
+    if (document.getElementById('truck'+beltcounter).style.display === 'none') {
+        document.getElementById('package'+beltcounter).style.left = 0;
+        localStorage.setItem('package'+beltcounter, 0);
+        positions[beltcounter] = 0;
+        clearInterval(intervals[beltcounter]);
+    }
+    else {
+        positions[beltcounter] = localStorage.getItem('package'+beltcounter);
+        clearInterval(intervals[beltcounter]);
+    }
 }
