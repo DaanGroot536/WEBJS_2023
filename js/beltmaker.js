@@ -1,6 +1,9 @@
 import { animate, stop } from './animation.js';
 import { makeDropzone } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
+import { setHalls } from './hallswitcher.js';
+
+setHalls();
 
 let beltbtn1 = document.getElementById('beltbtn1');
 let beltbtn2 = document.getElementById('beltbtn2');
