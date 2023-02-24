@@ -1,4 +1,5 @@
 import { animate, stop } from './animation.js';
+import { makeDropzone } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 
 let beltbtn1 = document.getElementById('beltbtn1');
@@ -8,7 +9,7 @@ let beltcounter2 = 3;
 beltbtn1.addEventListener('click', addBelt1);
 beltbtn2.addEventListener('click', addBelt2);
 
-function addBelt1() {
+export function addBelt1() {
     if(beltcounter1 < 3) {
         addBelt(beltcounter1, 1);
         beltcounter1++;
@@ -16,7 +17,7 @@ function addBelt1() {
     
 }
 
-function addBelt2() {
+export function addBelt2() {
     if(beltcounter2 < 6) {
         addBelt(beltcounter2, 2)
         beltcounter2++;
@@ -25,7 +26,6 @@ function addBelt2() {
 }
 
 //TODO:
-//make new js file with mechanics to transfer canvas to truck
 //truck contents need to be stored in localStorage
 
 function addBelt(beltcounter, panel) {
@@ -82,5 +82,6 @@ function addTrucks(beltRow, beltcounter) {
     let truck = document.createElement('div');
     truck.className = "col-3 truck";
     truck.id = "truck"+beltcounter;
+    makeDropzone(truck);
     beltRow.appendChild(truck);
 }

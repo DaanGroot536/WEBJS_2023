@@ -1,3 +1,5 @@
+import { makeDraggable } from "./draganddrop.js";
+
 export default class ImageMaker {
     RECTANGLE_SIZE = 25;
     SHAPES = [
@@ -61,4 +63,5 @@ export default class ImageMaker {
             ctx.fillRect(x, y, this.RECTANGLE_SIZE, this.RECTANGLE_SIZE);
         });
     }
+
 }
