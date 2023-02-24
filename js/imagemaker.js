@@ -1,13 +1,6 @@
 export default class ImageMaker {
-
-    draw(shapeNumber, packageNode, beltcounter) {
-        const currentCanvas = document.createElement('canvas');
-        currentCanvas.id = `canvas${beltcounter}`;
-        packageNode.appendChild(currentCanvas);
-        const ctx = currentCanvas.getContext("2d");
-    }
-
-    static SHAPES = [
+    RECTANGLE_SIZE = 25;
+    SHAPES = [
         {
             color: "rgb(200, 0, 0)",
             coords: [
@@ -54,4 +47,18 @@ export default class ImageMaker {
             ],
         },
     ];
+
+    draw(shapeNumber, packageNode, beltcounter) {
+        const currentCanvas = document.createElement("canvas");
+        currentCanvas.id = `canvas${beltcounter}`;
+        packageNode.appendChild(currentCanvas);
+        const ctx = currentCanvas.getContext("2d");
+
+        const { color, coords } = this.SHAPES[shapeNumber];
+
+        ctx.fillStyle = color;
+        coords.forEach(([x, y]) => {
+            ctx.fillRect(x, y, this.RECTANGLE_SIZE, this.RECTANGLE_SIZE);
+        });
+    }
 }
