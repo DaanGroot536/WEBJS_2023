@@ -1,5 +1,5 @@
 import { movePackage } from "./packagemover.js";
-import { checkTruckContent } from "./truckmanager.js";
+import { checkTruckContent } from "./truckController.js";
 
 let intervals = new Array();
 let positions = new Array();

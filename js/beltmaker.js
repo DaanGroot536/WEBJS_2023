@@ -3,6 +3,9 @@ import { makeDropzone } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 
+window.addEventListener("load", (event) => {
+    localStorage.clear();
+});
 setHalls();
 let beltbtn1 = document.getElementById('beltbtn1');
 let beltbtn2 = document.getElementById('beltbtn2');
@@ -10,19 +13,19 @@ let beltcounter1 = 0;
 let beltcounter2 = 3;
 
 export function addBelt1() {
-    if(beltcounter1 < 3) {
+    if (beltcounter1 < 3) {
         addBelt(beltcounter1, 1);
         beltcounter1++;
     }
-    
+
 }
 
 export function addBelt2() {
-    if(beltcounter2 < 6) {
+    if (beltcounter2 < 6) {
         addBelt(beltcounter2, 2)
         beltcounter2++;
     }
-    
+
 }
 
 //TODO:
@@ -30,20 +33,20 @@ export function addBelt2() {
 
 function addBelt(beltcounter, panel) {
     storeTruck(beltcounter)
-    let beltpane = document.getElementById('beltpanel'+panel);
+    let beltpane = document.getElementById('beltpanel' + panel);
     let btndiv = document.createElement('div');
     btndiv.className = "col-2";
 
     let beltstart = document.createElement('button');
     beltstart.className = "btn btn-secondary mt-3";
-    beltstart.innerHTML = "Start belt "+beltcounter;
+    beltstart.innerHTML = "Start belt " + beltcounter;
 
     let beltstop = document.createElement('button');
-    beltstop.innerHTML = "Stop belt "+beltcounter;
+    beltstop.innerHTML = "Stop belt " + beltcounter;
     beltstop.className = "btn btn-secondary mt-3";
     beltstop.style.opacity = 0;
     beltstop.addEventListener('click', (event) => {
-        stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length-1));
+        stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
         beltstart.style.opacity = 1;
         beltstop.style.opacity = 0;
     });
@@ -54,7 +57,7 @@ function addBelt(beltcounter, panel) {
     let newBelt = document.createElement('div');
     newBelt.className = "conveyorbelt col-7";
     let beltItem = document.createElement('div');
-    beltItem.id = "package"+beltcounter;
+    beltItem.id = "package" + beltcounter;
     beltItem.className = "package";
     newBelt.appendChild(beltItem);
 
@@ -63,7 +66,7 @@ function addBelt(beltcounter, panel) {
     imageMaker.draw(rnd, beltItem, beltcounter);
 
     beltstart.addEventListener('click', (event) => {
-        animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length-1), imageMaker, beltItem);
+        animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
         beltstart.style.opacity = 0;
         beltstop.style.opacity = 1;
     });
@@ -82,11 +85,11 @@ function addBelt(beltcounter, panel) {
 function addTrucks(beltRow, beltcounter) {
     let truck = document.createElement('div');
     truck.className = "col-3 truck";
-    truck.id = "truck"+beltcounter;
+    truck.id = "truck" + beltcounter;
     makeDropzone(truck);
     beltRow.appendChild(truck);
 }
 
 function storeTruck(beltcounter) {
-    localStorage.setItem(`truck${beltcounter}`, localStorage.getItem('truck'));
+    localStorage.setItem(`truck${beltcounter}`, localStorage.getItem('tempTruck'));
 }

@@ -1,4 +1,5 @@
 import { WeatherModel } from '../Model/api.js';
+import { checkWeather } from '../truckController.js';
 
 class weatherController {
     weatherButton = document.querySelector("#weatherBtn");
@@ -13,6 +14,7 @@ class weatherController {
     setupEventListeners() {
         this.weatherButton.addEventListener("click", () => {
             this.getLocalWeather();
+            checkWeather();
         })
     }
 
