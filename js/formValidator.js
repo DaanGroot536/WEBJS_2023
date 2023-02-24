@@ -1,4 +1,14 @@
 export default class FormValidator {
+
+    MIN_LENGTH = 1;
+    MAX_LENGTH = 3;
+
+    MIN_WIDTH = 1;
+    MAX_WIDTH = 7;
+    
+    MIN_INTERVAL = 1;
+    MAX_INTERVAL = 5;
+
     constructor() {
 
     }
@@ -13,40 +23,66 @@ export default class FormValidator {
 
     validateForm(currentTab) {
         let valid = true;
-    
+
         const currentTabElement = document.getElementsByClassName("tab")[currentTab];
         const inputElement = currentTabElement.getElementsByTagName("input")[0];
-    
+
         if (!inputElement) return valid;
-    
+
         const errorMessageElement = document.getElementById(`${inputElement.name}error`);
 
-        function validateInputValue() {
-            if (inputElement.value === "") {
-                errorMessageElement.textContent = "You need to enter a value.";
-                return false;
-            } else if (inputElement.value <= 0 || inputElement.value > 5) {
-                errorMessageElement.textContent = "Entered value needs to be between 1 and 5.";
-                return false;
-            }
-            return true;
-        }
-    
-        if (validateInputValue()) {
+        if (this.validateInputValue(inputElement, errorMessageElement)) {
             // hide error message
             errorMessageElement.textContent = "";
             errorMessageElement.classList.remove("active");
-    
+
             // update step indicator
             document.getElementsByClassName("step")[currentTab].classList.add("finish");
         } else {
             // show error message
             errorMessageElement.classList.add("active");
             inputElement.classList.add("invalid");
-    
+
             valid = false;
         }
-    
+
         return valid;
-    }    
+    }
+
+    validateInputValue(inputElement, errorMessageElement) {
+        const name = inputElement.name;
+        const value = inputElement.value;
+        let errorMessage = '';
+
+        switch (name) {
+            case "interval":
+                if (value < this.MIN_INTERVAL || value > this.MAX_INTERVAL) {
+                    errorMessage = `Entered value must be between ${this.MIN_INTERVAL} and ${this.MAX_INTERVAL}.`;
+                }
+                break;
+            case "length":
+                if (value < this.MIN_LENGTH || value > this.MAX_LENGTH) {
+                    errorMessage = `Entered value must be between ${this.MIN_LENGTH} and ${this.MAX_LENGTH}.`;
+                }
+                break;
+            case "width":
+                if (value <= this.MIN_WIDTH || value > this.MAX_WIDTH) {
+                    errorMessage = `Entered value must be between ${this.MIN_WIDTH} and ${this.MAX_WIDTH}.`;
+                } else if (value <= document.querySelector("#length").value) {
+                    errorMessage = "Width must be higher than length.";
+                }
+                break;
+            default:
+                errorMessage = "Invalid input element name.";
+                break;
+        }
+
+
+        if (errorMessage !== "") {
+            errorMessageElement.textContent = errorMessage;
+            return false;
+        }
+
+        return true;
+    }
 }
