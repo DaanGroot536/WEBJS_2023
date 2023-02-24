@@ -1,10 +1,10 @@
 export default class ImageMaker {
 
     draw(shapeNumber, packageNode, beltcounter) {
-        const currCanvas = document.createElement('canvas');
-        currCanvas.id = `canvas${beltcounter}`;
-        packageNode.appendChild(currCanvas);
-        const ctx = currCanvas.getContext("2d");
+        const currentCanvas = document.createElement('canvas');
+        currentCanvas.id = `canvas${beltcounter}`;
+        packageNode.appendChild(currentCanvas);
+        const ctx = currentCanvas.getContext("2d");
     }
 
     static SHAPES = [
