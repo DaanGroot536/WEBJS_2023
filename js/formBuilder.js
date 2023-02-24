@@ -132,6 +132,12 @@ export default class FormBuilder {
             type: loadTypeInput.value
         };
 
+        try {
+            window.localStorage.setItem("truck", JSON.stringify(truck));
+        } catch (e) {
+            console.error("Error storing truck data:", e);
+        }
+
         if (currentHall === 1) {
             addBelt1();
         }
@@ -139,11 +145,6 @@ export default class FormBuilder {
             addBelt2();
         }
 
-        try {
-            window.localStorage.setItem("truck", JSON.stringify(truck));
-        } catch (e) {
-            console.error("Error storing truck data:", e);
-        }
     }
 }
 
