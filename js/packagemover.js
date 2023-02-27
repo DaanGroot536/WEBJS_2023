@@ -1,7 +1,7 @@
 export function movePackage(beltcounter) {
     let truck = document.getElementById('truck'+beltcounter);
     let newCanvas = document.createElement('canvas');
-    newCanvas.width = 120;
+    newCanvas.width = 100;
     newCanvas.height = 100;
     let currPackage = document.getElementById('canvas'+beltcounter);
     truck.appendChild(newCanvas);

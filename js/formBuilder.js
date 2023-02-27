@@ -1,13 +1,14 @@
 import FormValidator from './formValidator.js';
 import { currentHall } from './hallswitcher.js';
-import { addBelt1, addBelt2 } from './beltmaker.js';
+import BeltMaker from './beltmaker.js';
 
 export default class FormBuilder {
 
     currentTab = 0;
 
-    constructor(fv) {
+    constructor(fv, bm) {
         formValidator = fv;
+        beltMaker = bm;
 
         this.setupForm();
         this.showTab(this.currentTab);
@@ -138,15 +139,10 @@ export default class FormBuilder {
             console.error("Error storing truck data:", e);
         }
 
-        if (currentHall === 1) {
-            addBelt1();
-        }
-        else {
-            addBelt2();
-        }
-
+        beltMaker.addBelt(currentHall);
     }
 }
 
 let formValidator = new FormValidator();
-new FormBuilder(formValidator);
+let beltMaker = new BeltMaker();
+new FormBuilder(formValidator, beltMaker);
