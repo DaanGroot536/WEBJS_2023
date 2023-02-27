@@ -134,7 +134,7 @@ export default class FormBuilder {
         };
 
         try {
-            window.localStorage.setItem("truck", JSON.stringify(truck));
+            window.localStorage.setItem("temptruck", JSON.stringify(truck));
         } catch (e) {
             console.error("Error storing truck data:", e);
         }

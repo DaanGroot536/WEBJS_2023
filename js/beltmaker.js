@@ -4,6 +4,9 @@ import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
 
+window.addEventListener("load", (event) => {
+    localStorage.clear();
+});
 setHalls();
 
 window.addEventListener("load", (event) => {
@@ -37,8 +40,7 @@ export default class BeltMaker {
             let beltstop = document.createElement('button');
             beltstop.innerHTML = "Stop belt " + beltcounter;
             beltstop.className = "btn btn-secondary mt-3";
-            beltstop.style.opacity = 0;
-
+            
             beltstop.addEventListener('click', (event) => {
                 stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
                 beltstart.disabled = false;

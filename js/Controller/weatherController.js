@@ -1,4 +1,5 @@
 import { WeatherModel } from '../Model/api.js';
+import { checkWeather } from '../truckmanager.js';
 
 class weatherController {
     weatherButton = document.querySelector("#weatherBtn");
@@ -35,6 +36,7 @@ class weatherController {
     }
 
     showWeather(weatherData) {
+        checkWeather(weatherData);
         const descriptionElement = document.getElementById('description');
         const tempElement = document.getElementById('temp');
       
