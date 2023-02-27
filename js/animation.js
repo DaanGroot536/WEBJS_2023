@@ -27,17 +27,20 @@ function move(beltcounter, imageMaker, beltItem) {
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
 
     if(currentPosition < screen.width * 0.5) {
-        currentPosition = currentPosition + 1;
+        currentPosition += 1;
         localStorage.setItem(`package${beltcounter}`, currentPosition);
-        node.style.left = currentPosition + "px";
+        node.style.left = `${currentPosition}px`;
     }
     else {
         movePackage(beltcounter);
         localStorage.setItem(`package${beltcounter}`, 0);
-        let viewItem = document.getElementById('canvas'+beltcounter);
-        viewItem.remove();  
-        let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
+
+        let viewItem = document.getElementById(`canvas${beltcounter}`);
+        viewItem.remove();
+
+        let rnd = Math.floor(Math.random() * 5); // Generate a random number between 0 and 4
         imageMaker.draw(rnd, beltItem, beltcounter);
+
         checkTruckContent(beltcounter);
     }
 }
