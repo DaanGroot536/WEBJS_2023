@@ -14,9 +14,9 @@ export function movePackage(beltcounter) {
     else {
         let storageHall = document.getElementById('storageHall');
         let newCanvas = document.createElement('canvas');
-        newCanvas.width = 120;
+        newCanvas.width = 100;
         newCanvas.height = 100;
-        newCanvas.style.width = '120px';
+        newCanvas.style.width = '100px';
         newCanvas.style.height = '100px';
         let currPackage = document.getElementById('canvas' + beltcounter);
         storageHall.appendChild(newCanvas);
