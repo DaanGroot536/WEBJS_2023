@@ -8,12 +8,12 @@ for (let i = 0; i < 6; i++) {
 }
 
 export function animate(beltcounter, imageMaker, beltItem) {
-    if (positions[beltcounter] != 0) {
-        localStorage.setItem(`package${beltcounter}`, positions[beltcounter]);
-    }
-    else {
-        localStorage.setItem(`package${beltcounter}`, 0);
-    }
+
+    const position = positions[beltcounter];
+    const item = position !== 0 ? position : 0;
+
+    localStorage.setItem(`package${beltcounter}`, item);
+
     document.getElementById(`truck${beltcounter}`).style.border = '1px solid black';
     intervals[beltcounter] = setInterval(move, 10, beltcounter, imageMaker, beltItem);
     localStorage.setItem(`moving${beltcounter}`, true);
