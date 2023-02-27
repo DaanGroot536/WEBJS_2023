@@ -67,8 +67,3 @@ input.invalid {
   padding: 0.3em;
   transition: 0.1s, 0.2s;
 }
-
-.movedPackage {
-    position: absolute;
-    border: solid 1px black;
-}
