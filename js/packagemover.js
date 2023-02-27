@@ -25,4 +25,3 @@ export function movePackage(beltcounter) {
         destCtx.drawImage(currPackage, -10, -10);
     }
 }
-
