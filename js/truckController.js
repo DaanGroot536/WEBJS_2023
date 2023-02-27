@@ -46,20 +46,27 @@ export function checkWeather(weatherData) {
             checkRoadClearance(key.slice(5, 6), JSON.parse(window.localStorage.getItem(key)), weatherData);
         }
     }
-    console.log('working');
-
-    console.log(trucks);
 }
 
 function checkRoadClearance(truckID, truck, weatherData) {
     let beltItem = document.getElementById(`package${truckID}`);
     let imageMaker = new ImageMaker();
-    if (localStorage.getItem(`moving${truckID}`) === false) {
+    console.log(localStorage.getItem(`moving${truckID}`));
+    if (localStorage.getItem(`moving${truckID}`) == 'false') {
         animate(truckID, imageMaker, beltItem);
     }
 
-    if (truck.type == 'cold' && weatherData.celsius >= 35) {
-        stop(truckID);
+    switch (truck.type) {
+        case 'cold':
+            if (weatherData.celsius >= 35) {
+                stop(truckID);
+            }
+        break;
+        case 'fragile':
+            if (weatherData.description === 'Rain' || weatherData.description === 'Snow') {
+                stop(truckID);
+            }
+        break;
     }
     console.log(weatherData);
 }
