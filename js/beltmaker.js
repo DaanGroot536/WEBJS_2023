@@ -22,7 +22,7 @@ export default class BeltMaker {
             this.storeTruck(beltcounter)
             let beltpanel = document.getElementById(`beltpanel${currentHall}`);
             let btndiv = document.createElement('div');
-            btndiv.className = "col-2";
+            btndiv.className = "col-1";
         
             let beltstart = document.createElement('button');
             beltstart.className = "btn btn-secondary mt-3";
@@ -63,10 +63,10 @@ export default class BeltMaker {
             beltRow.appendChild(btndiv);
             beltRow.appendChild(newBelt);
 
-            TruckGenerator.generateTruck(beltRow,1);
+            TruckGenerator.generateTruck(beltRow, beltcounter);
 
             beltpanel.appendChild(beltRow);
-            beltcounter++;
+            this[`beltcounter${currentHall}`]++;
         }
     }
 

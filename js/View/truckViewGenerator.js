@@ -1,17 +1,19 @@
 export default class TruckGenerator {
-    static sizing = 50;
+    static sizing = 100;
 
     static generateTruck(beltRow, truckIndex) {
-        const length = JSON.parse(localStorage.getItem(`truck${0}`)).length;
-        const width = JSON.parse(localStorage.getItem(`truck${0}`)).width;
-        const type = JSON.parse(localStorage.getItem(`truck${0}`)).type;
+        const length = JSON.parse(localStorage.getItem(`truck`)).length;
+        const width = JSON.parse(localStorage.getItem(`truck`)).width;
+        const type = JSON.parse(localStorage.getItem(`truck`)).type;
 
         let truck = this.createBody(width, length, type);
+        let truckDiv = document.createElement('div');
+        truckDiv.className = 'col-4';
         truck.id = `truck${truckIndex}`;
         truck.classList.add("truck");
-
         //makeDropzone(truck);
-        beltRow.appendChild(truck);
+        truckDiv.appendChild(truck);
+        beltRow.appendChild(truckDiv);
     }
 
     static createBody(width, height, type) {
