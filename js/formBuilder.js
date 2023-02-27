@@ -1,6 +1,6 @@
 import FormValidator from './formValidator.js';
 import { currentHall } from './hallswitcher.js';
-import BeltMaker from './beltmaker.js';
+import { addBelt1, addBelt2 } from './beltmaker.js';
 
 export default class FormBuilder {
 
@@ -138,7 +138,12 @@ export default class FormBuilder {
             console.error("Error storing truck data:", e);
         }
 
-        beltMaker.addBelt(currentHall);
+        if (currentHall === 1) {
+            addBelt1();
+        }
+        else {
+            addBelt2();
+        }
 
     }
 }
