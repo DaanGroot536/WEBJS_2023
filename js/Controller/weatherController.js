@@ -6,6 +6,7 @@ class weatherController {
     cityInput = document.querySelector("#city-input");
     error = document.querySelector("#cityerror");
     errorMessageElement = document.getElementById('cityerror');
+    tempWeatherData = '';
 
     constructor() {
         this.setupEventListeners();
@@ -14,7 +15,6 @@ class weatherController {
     setupEventListeners() {
         this.weatherButton.addEventListener("click", () => {
             this.getLocalWeather();
-            checkWeather();
         })
     }
 
@@ -24,7 +24,6 @@ class weatherController {
         WeatherModel.fetchWeather(city)
             .then((weatherData) => {
                 this.showWeather(weatherData);
-
                 // hide error
                 this.errorMessageElement.textContent = "";
                 this.errorMessageElement.classList.remove("active");
@@ -37,6 +36,7 @@ class weatherController {
     }
 
     showWeather(weatherData) {
+        checkWeather(weatherData);
         const descriptionElement = document.getElementById('description');
         const tempElement = document.getElementById('temp');
       

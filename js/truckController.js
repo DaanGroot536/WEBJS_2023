@@ -27,14 +27,39 @@ function startBelt(truckID) {
 
 }
 
-export function checkWeather() {
+//get weather
+//compare for each truck if it can be on the road
+//args:
+//-rain/snow != fragile
+//-if >35 celsius != cold
+//-strong wind != pallets
+//if not make visible the truck cant go due to weather
+//stop the animation
+
+export function checkWeather(weatherData) {
     let trucks = [];
+
     for (let i = 0; i < window.localStorage.length; i++) {
         let key = window.localStorage.key(i);
-        console.log(key);
         if (key.slice(0, 5) === "truck") {
             trucks.push(JSON.parse(window.localStorage.getItem(key)));
+            checkRoadClearance(key.slice(5, 6), JSON.parse(window.localStorage.getItem(key)), weatherData);
         }
     }
+    console.log('working');
+
     console.log(trucks);
+}
+
+function checkRoadClearance(truckID, truck, weatherData) {
+    let beltItem = document.getElementById(`package${truckID}`);
+    let imageMaker = new ImageMaker();
+    if (localStorage.getItem(`moving${truckID}`) === false) {
+        animate(truckID, imageMaker, beltItem);
+    }
+
+    if (truck.type == 'cold' && weatherData.celsius >= 35) {
+        stop(truckID);
+    }
+    console.log(weatherData);
 }

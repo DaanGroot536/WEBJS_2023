@@ -15,12 +15,13 @@ export function animate(beltcounter, imageMaker, beltItem) {
         localStorage.setItem('package'+beltcounter, 0);
     }
     intervals[beltcounter] = setInterval(move, 10, beltcounter, imageMaker, beltItem);
-    console.log(screen.width * 0.75);
+    localStorage.setItem(`moving${beltcounter}`, true);
 }
 
 function move(beltcounter, imageMaker, beltItem) {
     let node = document.getElementById("package"+beltcounter);
     let currentPosition = parseInt(localStorage.getItem('package'+beltcounter));
+    document.getElementById('truck'+beltcounter).style.border = '1px solid black';
 
     if(currentPosition < (screen.width * 0.5) ) {
         currentPosition = currentPosition + 1;
@@ -45,9 +46,12 @@ export function stop(beltcounter) {
         localStorage.setItem('package'+beltcounter, 0);
         positions[beltcounter] = 0;
         clearInterval(intervals[beltcounter]);
+        localStorage.setItem(`moving${beltcounter}`, false);
     }
     else {
         positions[beltcounter] = localStorage.getItem('package'+beltcounter);
+        document.getElementById('truck'+beltcounter).style.border = '1px solid red';
         clearInterval(intervals[beltcounter]);
+        localStorage.setItem(`moving${beltcounter}`, false);
     }
 }
