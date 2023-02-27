@@ -58,5 +58,11 @@ function checkRoadClearance(truckID, truck, weatherData) {
                 document.getElementById('truck'+truckID).style.border = '1px solid red';
             }
         break;
+        case 'pallet':
+            if (weatherData.wind > 10) {
+                localStorage.setItem(`moving${truckID}`, 'false');
+                document.getElementById('truck'+truckID).style.border = '1px solid red';
+            }
+        break;
     }
 }

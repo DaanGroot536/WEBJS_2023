@@ -12,6 +12,13 @@ class weatherController {
     }
 
     setupEventListeners() {
+        const inputField = document.getElementById("weatherForm")
+        inputField.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          });
+
         this.weatherButton.addEventListener("click", () => {
             this.getLocalWeather();
         })
@@ -39,9 +46,11 @@ class weatherController {
         checkWeather(weatherData);
         const descriptionElement = document.getElementById('description');
         const tempElement = document.getElementById('temp');
+        const windElement = document.getElementById('windspeed');
       
         descriptionElement.textContent = weatherData.description;
         tempElement.textContent = `${weatherData.celsius}°C`;
+        windElement.textContent = `Windspeed: ${weatherData.wind}`;
     }
 }
 
