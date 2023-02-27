@@ -3,6 +3,7 @@ import { checkTruckContent } from "./truckmanager.js";
 
 let intervals = new Array();
 let positions = new Array();
+
 for (let i = 0; i < 6; i++) {
     positions[i] = 0;
 }
@@ -22,10 +23,10 @@ export function animate(beltcounter, imageMaker, beltItem) {
 }
 
 function move(beltcounter, imageMaker, beltItem) {
-    let node = document.getElementById(`package${beltcounter}`);
+    const node = document.getElementById(`package${beltcounter}`);
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
 
-    if(currentPosition < (screen.width * 0.5) ) {
+    if(currentPosition < screen.width * 0.5) {
         currentPosition = currentPosition + 1;
         localStorage.setItem(`package${beltcounter}`, currentPosition);
         node.style.left = currentPosition + "px";
@@ -34,16 +35,14 @@ function move(beltcounter, imageMaker, beltItem) {
         movePackage(beltcounter);
         localStorage.setItem(`package${beltcounter}`, 0);
         let viewItem = document.getElementById('canvas'+beltcounter);
-        viewItem.remove();
+        viewItem.remove();  
         let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
         imageMaker.draw(rnd, beltItem, beltcounter);
         checkTruckContent(beltcounter);
     }
-
 }
 
 export function stop(beltcounter) {
-
     const truck = document.getElementById(`truck${beltcounter}`);
     const item = document.getElementById(`package${beltcounter}`);
 
