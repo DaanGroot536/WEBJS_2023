@@ -3,9 +3,11 @@ import ImageMaker from "./imagemaker.js";
 
 export function checkTruckContent(truckID) {
     let truck = document.getElementById("truck" + truckID);
+    let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
     let content = truck.querySelectorAll('canvas');
     console.log(content.length);
-    if (content.length > 2) {
+    let space = storedTruck.length * storedTruck.width;
+    if (content.length === space) {
         truck.style.display = 'none';
         stop(truckID);
         startBeltAgain(truckID);

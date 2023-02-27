@@ -18,7 +18,7 @@ export default class TruckGenerator {
 
     static createBody(width, height, type) {
         const div = document.createElement('div');
-        div.style.width = width * this.sizing + 'px';
+        div.style.width = (width * this.sizing) + 5 + 'px';
         div.style.height = height * this.sizing + 'px';
         div.style.backgroundColor = this.getColor(type);
         return div;
