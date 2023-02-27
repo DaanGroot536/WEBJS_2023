@@ -12,6 +12,13 @@ class weatherController {
     }
 
     setupEventListeners() {
+        const inputField = document.getElementById("weatherForm")
+        inputField.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          });
+
         this.weatherButton.addEventListener("click", () => {
             this.getLocalWeather();
         })
