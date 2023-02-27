@@ -6,8 +6,9 @@ export default class FormBuilder {
 
     currentTab = 0;
 
-    constructor(fv) {
+    constructor(fv, bm) {
         formValidator = fv;
+        beltMaker = bm;
 
         this.setupForm();
         this.showTab(this.currentTab);
@@ -133,15 +134,15 @@ export default class FormBuilder {
         };
 
         try {
-            window.localStorage.setItem("tempTruck", JSON.stringify(truck));
+            window.localStorage.setItem("truck", JSON.stringify(truck));
         } catch (e) {
             console.error("Error storing truck data:", e);
         }
 
         beltMaker.addBelt(currentHall);
-
     }
 }
 
 let formValidator = new FormValidator();
-new FormBuilder(formValidator);
+let beltMaker = new BeltMaker();
+new FormBuilder(formValidator, beltMaker);
