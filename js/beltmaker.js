@@ -40,14 +40,15 @@ function addBelt(beltcounter, panel) {
     let beltstart = document.createElement('button');
     beltstart.className = "btn btn-secondary mt-3";
     beltstart.innerHTML = "Start belt " + beltcounter;
+    beltstart.disabled = true;
 
     let beltstop = document.createElement('button');
     beltstop.innerHTML = "Stop belt " + beltcounter;
     beltstop.className = "btn btn-secondary mt-3 ml-1";
     beltstop.addEventListener('click', (event) => {
         stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
-        beltstart.style.opacity = 1;
-        beltstop.style.opacity = 0;
+        beltstart.disabled = false;
+        beltstop.disabled = true;
     });
 
     btndiv.appendChild(beltstart);
@@ -66,8 +67,8 @@ function addBelt(beltcounter, panel) {
 
     beltstart.addEventListener('click', (event) => {
         animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
-        beltstart.style.opacity = 0;
-        beltstop.style.opacity = 1;
+        beltstop.disabled = false;
+        beltstart.disabled = true;
     });
 
     let beltRow = document.createElement('div');
