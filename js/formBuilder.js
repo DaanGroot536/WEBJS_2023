@@ -133,7 +133,7 @@ export default class FormBuilder {
         };
 
         try {
-            window.localStorage.setItem("truck", JSON.stringify(truck));
+            window.localStorage.setItem("tempTruck", JSON.stringify(truck));
         } catch (e) {
             console.error("Error storing truck data:", e);
         }
@@ -144,5 +144,4 @@ export default class FormBuilder {
 }
 
 let formValidator = new FormValidator();
-let beltMaker = new BeltMaker();
-new FormBuilder(formValidator, beltMaker);
+new FormBuilder(formValidator);
