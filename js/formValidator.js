@@ -29,6 +29,9 @@ export default class FormValidator {
 
         if (!inputElement) return valid;
 
+        // reset input class
+        inputElement.classList = [];
+
         const errorMessageElement = document.getElementById(`${inputElement.name}error`);
 
         if (this.validateInputValue(inputElement, errorMessageElement)) {
