@@ -7,8 +7,6 @@ window.addEventListener("load", (event) => {
     localStorage.clear();
 });
 setHalls();
-let beltbtn1 = document.getElementById('beltbtn1');
-let beltbtn2 = document.getElementById('beltbtn2');
 let beltcounter1 = 0;
 let beltcounter2 = 3;
 
