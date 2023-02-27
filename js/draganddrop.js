@@ -1,3 +1,4 @@
+import { checkTruckContent } from "./truckmanager.js";
 let tempCanvas = 0;
 
 export function makeDraggable(dragItem) {
@@ -13,13 +14,15 @@ export function makeDropzone(dropZone) {
     });
     
     dropZone.addEventListener('drop', (event) => {
+        let truckID = dropZone.id.slice(5,6);
         event.preventDefault();
         let newCanvas = document.createElement('canvas');
-        newCanvas.width = 120;
+        newCanvas.width = 100;
         newCanvas.height = 100;
         dropZone.appendChild(newCanvas);
         let newCtx = newCanvas.getContext('2d');
         newCtx.drawImage(tempCanvas, 0, 0);
         tempCanvas = 0;
+        checkTruckContent(truckID);
     });
 }

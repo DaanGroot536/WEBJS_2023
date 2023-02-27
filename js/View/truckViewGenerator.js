@@ -1,3 +1,5 @@
+import { makeDropzone } from "../draganddrop.js";
+
 export default class TruckGenerator {
     static sizing = 100;
 
@@ -11,7 +13,7 @@ export default class TruckGenerator {
         truckDiv.className = 'col-4';
         truck.id = `truck${truckIndex}`;
         truck.classList.add("truck");
-        //makeDropzone(truck);
+        makeDropzone(truck);
         truckDiv.appendChild(truck);
         beltRow.appendChild(truckDiv);
     }
