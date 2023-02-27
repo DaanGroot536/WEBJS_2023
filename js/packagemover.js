@@ -1,3 +1,5 @@
+import { makeDraggable } from "./draganddrop.js";
+
 export function movePackage(beltcounter) {
     if (localStorage.getItem(`moving${beltcounter}`) == 'true') {
         let truck = document.getElementById('truck'+beltcounter);
@@ -18,6 +20,7 @@ export function movePackage(beltcounter) {
         newCanvas.style.height = '100px';
         let currPackage = document.getElementById('canvas'+beltcounter);
         storageHall.appendChild(newCanvas);
+        makeDraggable(newCanvas);
         let destCtx = newCanvas.getContext('2d');
         destCtx.drawImage(currPackage, -10, -10);
     }
