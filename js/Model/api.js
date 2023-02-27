@@ -11,8 +11,9 @@ async function fetchWeather(city) {
     const data = await response.json();
     const celsius = Math.round(parseFloat(data.main.temp) - 273.15);
     const description = data.weather[0].main;
+    const wind = data.wind.speed;
 
-    return { celsius, description };
+    return { celsius, description, wind };
 }
 
 export const WeatherModel = {

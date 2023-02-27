@@ -64,7 +64,12 @@ function checkRoadClearance(truckID, truck, weatherData) {
         case 'fragile':
             if (weatherData.description === 'Rain' || weatherData.description === 'Snow') {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                console.log(truckID);
+                document.getElementById('truck'+truckID).style.border = '1px solid red';
+            }
+        break;
+        case 'pallet':
+            if (weatherData.wind > 10) {
+                localStorage.setItem(`moving${truckID}`, 'false');
                 document.getElementById('truck'+truckID).style.border = '1px solid red';
             }
         break;

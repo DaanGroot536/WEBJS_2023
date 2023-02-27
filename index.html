@@ -60,7 +60,8 @@
             <h5 class="text-center">Check Weather:</h5>
             <div>City:
                 <span class="error float-right" aria-live="polite" id="cityerror"></span>
-                <p><input type="text" placeholder="Search for a city..." oninput="this.className = ''" id="city-input" name="city-input">
+                <p><input type="text" placeholder="Search for a city..." oninput="this.className = ''" id="city-input"
+                        name="city-input">
                 </p>
             </div>
 
@@ -71,8 +72,11 @@
             </div>
 
             <div class="text-center">
-                <h3 id="temp"></h1>
-                <h5 id="description"></h3>
+                <h3 id="temp">
+                    </h1>
+                    <h5 id="description">
+                </h3>
+                <h5 id="windspeed"></h5>
             </div>
         </form>
     </div>
@@ -89,7 +93,7 @@
         </div>
         <div id="hall2">
             <p class="ml-3 mt-3">Hall 2</p>
-              <div id="controlpanel2" class="mt-3 ml-3">
+            <div id="controlpanel2" class="mt-3 ml-3">
             </div>
             <div id="beltpanel2" class="beltpanel w-100 card card-body ml-3 mt-3">
             </div>
@@ -108,4 +112,5 @@
 <script type="module" src="js/beltmaker.js"></script>
 <script type="module" src="js/formBuilder.js"></script>
 <script type="module" src="js/Controller/weatherController.js"></script>
+
 </html>

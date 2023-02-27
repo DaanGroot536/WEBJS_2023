@@ -39,9 +39,11 @@ class weatherController {
         checkWeather(weatherData);
         const descriptionElement = document.getElementById('description');
         const tempElement = document.getElementById('temp');
+        const windElement = document.getElementById('windspeed');
       
         descriptionElement.textContent = weatherData.description;
         tempElement.textContent = `${weatherData.celsius}°C`;
+        windElement.textContent = `Windspeed: ${weatherData.wind}`;
     }
 }
 
