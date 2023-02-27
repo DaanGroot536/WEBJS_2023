@@ -45,8 +45,6 @@ export function checkWeather(weatherData) {
 }
 
 function checkRoadClearance(truckID, truck, weatherData) {
-    let beltItem = document.getElementById(`package${truckID}`);
-    let imageMaker = new ImageMaker();
     console.log(localStorage.getItem(`moving${truckID}`));
     if (localStorage.getItem(`moving${truckID}`) == 'false') {
         localStorage.setItem(`moving${truckID}`, 'true');

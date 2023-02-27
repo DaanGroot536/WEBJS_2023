@@ -70,6 +70,7 @@ export default class BeltMaker {
             TruckGenerator.generateTruck(beltRow, beltcounter);
 
             beltpanel.appendChild(beltRow);
+            animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
             this[`beltcounter${currentHall}`]++;
         }
     }
