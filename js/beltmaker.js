@@ -1,8 +1,12 @@
 import { animate, stop } from './animation.js';
+import { makeDropzone, makeDraggable } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
 
+window.addEventListener("load", (event) => {
+    localStorage.clear();
+});
 setHalls();
 
 export default class BeltMaker {
@@ -27,15 +31,15 @@ export default class BeltMaker {
             let beltstart = document.createElement('button');
             beltstart.className = "btn btn-secondary mt-3";
             beltstart.innerHTML = "Start belt " + beltcounter;
+            beltstart.disabled = true;
         
             let beltstop = document.createElement('button');
             beltstop.innerHTML = "Stop belt " + beltcounter;
             beltstop.className = "btn btn-secondary mt-3";
-            beltstop.style.opacity = 0;
             beltstop.addEventListener('click', (event) => {
                 stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
-                beltstart.style.opacity = 1;
-                beltstop.style.opacity = 0;
+                beltstart.disabled = false;
+                beltstop.disabled = true;
             });
         
             btndiv.appendChild(beltstart);
@@ -54,8 +58,8 @@ export default class BeltMaker {
         
             beltstart.addEventListener('click', (event) => {
                 animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
-                beltstart.style.opacity = 0;
-                beltstop.style.opacity = 1;
+                beltstop.disabled = false;
+                beltstart.disabled = true;
             });
         
             let beltRow = document.createElement('div');
@@ -66,11 +70,12 @@ export default class BeltMaker {
             TruckGenerator.generateTruck(beltRow, beltcounter);
 
             beltpanel.appendChild(beltRow);
+            animate(beltcounter, imageMaker, beltItem);
             this[`beltcounter${currentHall}`]++;
         }
     }
 
     storeTruck(beltcounter) {
-        localStorage.setItem(`truck${beltcounter}`, localStorage.getItem('truck'));
+        localStorage.setItem(`truck${beltcounter}`, localStorage.getItem('temptruck'));
     }
 }

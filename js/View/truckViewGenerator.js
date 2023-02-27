@@ -2,9 +2,9 @@ export default class TruckGenerator {
     static sizing = 100;
 
     static generateTruck(beltRow, truckIndex) {
-        const length = JSON.parse(localStorage.getItem(`truck`)).length;
-        const width = JSON.parse(localStorage.getItem(`truck`)).width;
-        const type = JSON.parse(localStorage.getItem(`truck`)).type;
+        const length = JSON.parse(localStorage.getItem(`temptruck`)).length;
+        const width = JSON.parse(localStorage.getItem(`temptruck`)).width;
+        const type = JSON.parse(localStorage.getItem(`temptruck`)).type;
 
         let truck = this.createBody(width, length, type);
         let truckDiv = document.createElement('div');
