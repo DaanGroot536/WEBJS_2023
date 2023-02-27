@@ -14,7 +14,9 @@ export function animate(beltcounter, imageMaker, beltItem) {
 
     localStorage.setItem(`package${beltcounter}`, item);
 
-    document.getElementById(`truck${beltcounter}`).style.border = '1px solid black';
+    const truck = document.getElementById(`truck${beltcounter}`);
+    truck.style.border = '1px solid black';
+
     intervals[beltcounter] = setInterval(move, 10, beltcounter, imageMaker, beltItem);
     localStorage.setItem(`moving${beltcounter}`, true);
 }
