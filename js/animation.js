@@ -46,12 +46,10 @@ export function stop(beltcounter) {
         localStorage.setItem('package'+beltcounter, 0);
         positions[beltcounter] = 0;
         clearInterval(intervals[beltcounter]);
-        localStorage.setItem(`moving${beltcounter}`, 'false');
     }
     else {
         positions[beltcounter] = localStorage.getItem('package'+beltcounter);
         document.getElementById('truck'+beltcounter).style.border = '1px solid red';
         clearInterval(intervals[beltcounter]);
-        localStorage.setItem(`moving${beltcounter}`, 'false');
     }
 }

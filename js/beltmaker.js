@@ -1,5 +1,5 @@
 import { animate, stop } from './animation.js';
-import { makeDropzone } from './draganddrop.js';
+import { makeDropzone, makeDraggable } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 

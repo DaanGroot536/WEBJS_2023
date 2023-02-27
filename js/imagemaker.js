@@ -54,6 +54,7 @@ export default class ImageMaker {
         const currentCanvas = document.createElement("canvas");
         currentCanvas.id = `canvas${beltcounter}`;
         packageNode.appendChild(currentCanvas);
+        makeDraggable(currentCanvas);
         const ctx = currentCanvas.getContext("2d");
 
         const { color, coords } = this.SHAPES[shapeNumber];

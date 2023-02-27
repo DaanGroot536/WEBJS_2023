@@ -30,11 +30,7 @@ function startBelt(truckID) {
 //get weather
 //compare for each truck if it can be on the road
 //args:
-//-rain/snow != fragile
-//-if >35 celsius != cold
 //-strong wind != pallets
-//if not make visible the truck cant go due to weather
-//stop the animation
 
 export function checkWeather(weatherData) {
     let trucks = [];
@@ -53,18 +49,18 @@ function checkRoadClearance(truckID, truck, weatherData) {
     let imageMaker = new ImageMaker();
     console.log(localStorage.getItem(`moving${truckID}`));
     if (localStorage.getItem(`moving${truckID}`) == 'false') {
-        animate(truckID, imageMaker, beltItem);
+        localStorage.setItem(`moving${truckID}`, 'true');
     }
 
     switch (truck.type) {
         case 'cold':
             if (weatherData.celsius >= 35) {
-                stop(truckID);
+                localStorage.setItem(`moving${truckID}`, 'false');
             }
         break;
         case 'fragile':
             if (weatherData.description === 'Rain' || weatherData.description === 'Snow') {
-                stop(truckID);
+                localStorage.setItem(`moving${truckID}`, 'false');
             }
         break;
     }
