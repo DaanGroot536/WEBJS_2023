@@ -3,6 +3,7 @@ import { makeDropzone, makeDraggable } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
+import { drawTetrisShape } from './View/tetrisShapeView.js';
 
 window.addEventListener("load", (event) => {
     localStorage.clear();

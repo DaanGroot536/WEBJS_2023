@@ -26,4 +26,6 @@ export function drawTetrisShape(targetID, tetrisShape) {
             }
         }
     }
+
+    localStorage.setItem(targetID, tetrisShape);
 }

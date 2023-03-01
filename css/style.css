@@ -68,9 +68,7 @@ input.invalid {
   transition: 0.1s, 0.2s;
 }
 
-/* .testTruck {
-  -moz-transform: scale(-1, -1);
-  -webkit-transform: scale(-1, -1);
-  -o-transform: scale(-1, -1);
-  transform: scaleX(-1, -1);
-} */
+.testTruck {
+  transform: rotate(90deg);
+  margin-left: 20px;
+}
