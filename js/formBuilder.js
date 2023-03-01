@@ -10,11 +10,62 @@ export default class FormBuilder {
         formValidator = fv;
         beltMaker = bm;
 
-        this.setupForm();
+        const header = "Register Truck:";
+        const formID = "truckForm";
+        const numberInputFields = [
+            ["length", "number", "Length (Y axis):"],
+            ["width", "number", "Width (X axis):"],
+            ["interval", "number", "Truck Interval:"]
+        ];
+
+        const selectInputFields = [
+            ["Load Type: ", [
+                { value: 'cold', label: 'Cold transport' },
+                { value: 'fragile', label: 'Fragile transport' },
+                { value: 'general', label: 'General transport' },
+                { value: 'quick', label: 'Quick transport' },
+                { value: 'pallet', label: 'Pallet transport' }
+            ]]
+        ];
+
+
+        this.setupForm(header, formID, numberInputFields, selectInputFields);
         this.showTab(this.currentTab);
     }
 
-    setupForm() {
+    setupForm(header, formID, numberInputFields, selectInputFields) {
+        // create form
+        const form = document.createElement("form");
+        form.setAttribute("id", formID);
+        form.setAttribute("class", "card card-body mt-3 col-3");
+
+        // get base area
+        const formArea = document.getElementById("form-area");
+        formArea.appendChild(form);
+
+        // create header
+        this.createHeader(header, form);
+
+        // create input fields
+        numberInputFields.forEach((element) => {
+            const field = this.createInputElement(element[0], element[1], element[2]);
+            form.append(field);
+        });
+
+        // create select fields
+        selectInputFields.forEach((element) => {
+            const field = this.createSelectElement(element[0], element[1]);
+            form.append(field);
+        })
+
+        // create buttons
+        this.createButtonElements(form);
+
+        // create step indicators
+        const amountOfSteps = numberInputFields.length + selectInputFields.length
+        this.createStepIndicators(amountOfSteps, form);
+
+
         const inputElements = document.forms["truckForm"].querySelectorAll("input");
 
         // Add event listeners to input fields to automatically validate input
@@ -38,6 +89,116 @@ export default class FormBuilder {
         navigationButtons.forEach((navigationButton) => {
             navigationButton.addEventListener("click", handleNavigationButtonClick);
         });
+    }
+
+    createHeader(textContent, parentElement) {
+        const header = document.createElement("h5");
+
+        header.classList.add("h5");
+        header.textContent = textContent;
+
+        parentElement.appendChild(header);
+    }
+
+    createInputElement(name, type, title) {
+        // Create elements
+        const div = document.createElement("div");
+        const label = document.createElement("label");
+        const inputWrapper = document.createElement("div");
+        const input = document.createElement("input");
+        const error = document.createElement("span");
+
+        // Set attributes and text content
+        div.classList.add("tab");
+        label.textContent = title;
+        label.htmlFor = name;
+        error.classList.add("error", "float-right");
+        error.setAttribute("aria-live", "polite");
+        error.id = `${name}error`;
+        input.type = type;
+        input.placeholder = name;
+        input.id = name;
+        input.name = name;
+
+        // Assemble elements
+        inputWrapper.appendChild(input);
+        div.appendChild(label);
+        div.appendChild(error);
+        div.appendChild(inputWrapper);
+
+        return div;
+    }
+
+    createSelectElement(name, options) {
+        // create tab
+        const containerDiv = document.createElement('div');
+        containerDiv.classList.add('tab');
+
+        // create label
+        const labelTextNode = document.createTextNode(`${name}: `);
+
+        // create select element
+        const selectElement = document.createElement('select');
+        selectElement.setAttribute('id', name.toLowerCase());
+
+        // create option elements
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.setAttribute('value', option.value);
+            optionElement.textContent = option.label;
+            selectElement.appendChild(optionElement);
+        });
+
+        // create p element
+        const pElement = document.createElement('p');
+        pElement.appendChild(selectElement);
+
+        // append label and p element
+        containerDiv.appendChild(labelTextNode);
+        containerDiv.appendChild(pElement);
+
+        return containerDiv;
+    }
+
+    createButtonElements(parent) {
+        const overflowDiv = document.createElement("div");
+        overflowDiv.classList.add("overflow-auto");
+
+        const floatRightDiv = document.createElement("div");
+        floatRightDiv.classList.add("float-right");
+
+        const prevButton = document.createElement("button");
+        prevButton.setAttribute("type", "button");
+        prevButton.setAttribute("id", "prevBtn");
+        prevButton.classList.add("btn", "btn-secondary");
+        prevButton.textContent = "Previous";
+
+        const nextButton = document.createElement("button");
+        nextButton.setAttribute("type", "button");
+        nextButton.setAttribute("id", "nextBtn");
+        nextButton.classList.add("btn", "btn-primary");
+        nextButton.textContent = "Next";
+
+        floatRightDiv.appendChild(prevButton);
+        floatRightDiv.appendChild(nextButton);
+
+        overflowDiv.appendChild(floatRightDiv);
+
+        parent.appendChild(overflowDiv);
+    }
+
+    createStepIndicators(amountOfSteps, parent) {
+        const container = document.createElement("div");
+        container.classList.add("text-center");
+
+        for (let step = 0; step < amountOfSteps; step++) {
+            const stepSpan = document.createElement("span");
+            stepSpan.classList.add("step");
+            console.log("step!");
+            container.appendChild(stepSpan);
+        }
+
+        parent.appendChild(container);
     }
 
 

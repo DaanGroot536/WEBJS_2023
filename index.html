@@ -13,49 +13,7 @@
 
 <body>
 
-    <div class="row ml-3">
-        <form id="truckForm" class="card card-body mt-3 col-3">
-            <h5 class="text-center">Register Truck:</h5>
-            <div class="tab">Length (Y axis):
-                <span class="error float-right" aria-live="polite" id="lengtherror"></span>
-                <p><input type="number" placeholder="Length" id="length" name="length">
-                </p>
-            </div>
-            <div class="tab">Width (X axis):
-                <span class="error" aria-live="polite" id="widtherror"></span>
-                <p><input type="number" placeholder="Width" id="width" name="width"></p>
-            </div>
-            <div class="tab">Truck Interval:
-                <span class="error" aria-live="polite" id="intervalerror"></span>
-                <p><input type="number" placeholder="Seconds" id="interval"
-                        name="interval"></p>
-            </div>
-            <div class="tab">Load Type:
-                <p>
-                    <select id="trucktype">
-                        <option value="cold">Cold transport</option>
-                        <option value="fragile">Fragile transport</option>
-                        <option value="general">General transport</option>
-                        <option value="quick">Quick transport</option>
-                        <option value="pallet">Pallet transport</option>
-                    </select>
-                </p>
-            </div>
-            <div class="overflow-auto">
-                <div class="float-right">
-                    <button type="button" id="prevBtn" class="btn btn-secondary">Previous</button>
-                    <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-            </div>
-        </form>
-
+    <div class="row ml-3" id="form-area">
         <form id="weatherForm" class="card card-body mt-3 ml-3 col-3">
             <h5 class="text-center">Check Weather:</h5>
             <div>City:
