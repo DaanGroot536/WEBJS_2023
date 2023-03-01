@@ -37,7 +37,7 @@ export default class FormBuilder {
         // create form
         const form = document.createElement("form");
         form.setAttribute("id", formID);
-        form.setAttribute("class", "card card-body mt-3 col-3");
+        form.setAttribute("class", "card card-body mt-3 ml-3 col-3");
 
         // get base area
         const formArea = document.getElementById("form-area");
@@ -48,14 +48,12 @@ export default class FormBuilder {
 
         // create input fields
         numberInputFields.forEach((element) => {
-            const field = this.createInputElement(element[0], element[1], element[2]);
-            form.append(field);
+            const field = this.createInputElement(element[0], element[1], element[2], form);
         });
 
         // create select fields
         selectInputFields.forEach((element) => {
-            const field = this.createSelectElement(element[0], element[1]);
-            form.append(field);
+            const field = this.createSelectElement(element[0], element[1], form);
         })
 
         // create buttons
@@ -64,43 +62,18 @@ export default class FormBuilder {
         // create step indicators
         const amountOfSteps = numberInputFields.length + selectInputFields.length
         this.createStepIndicators(amountOfSteps, form);
-
-
-        const inputElements = document.forms["truckForm"].querySelectorAll("input");
-
-        // Add event listeners to input fields to automatically validate input
-        const handleInput = (event) => {
-            formValidator.validateForm(this.currentTab);
-            formValidator.preventNonNumericInput(event);
-        };
-
-        inputElements.forEach((inputElement) => {
-            inputElement.addEventListener("input", handleInput);
-        });
-
-        const navigationButtons = document.querySelectorAll("#prevBtn, #nextBtn");
-
-        // Add event listeners to navigation buttons to handle updating buttons and tabs
-        const handleNavigationButtonClick = (event) => {
-            const directionID = event.target.id === "nextBtn" ? 1 : -1;
-            this.nextPrev(directionID);
-        };
-
-        navigationButtons.forEach((navigationButton) => {
-            navigationButton.addEventListener("click", handleNavigationButtonClick);
-        });
     }
 
     createHeader(textContent, parentElement) {
         const header = document.createElement("h5");
 
-        header.classList.add("h5");
+        header.classList.add("h5", "text-center");
         header.textContent = textContent;
 
         parentElement.appendChild(header);
     }
 
-    createInputElement(name, type, title) {
+    createInputElement(name, type, title, parent) {
         // Create elements
         const div = document.createElement("div");
         const label = document.createElement("label");
@@ -126,10 +99,17 @@ export default class FormBuilder {
         div.appendChild(error);
         div.appendChild(inputWrapper);
 
-        return div;
+        parent.appendChild(div);
+
+        const handleInput = (event) => {
+            formValidator.validateForm(this.currentTab);
+            formValidator.preventNonNumericInput(event);
+        };
+
+        input.addEventListener("input", handleInput);
     }
 
-    createSelectElement(name, options) {
+    createSelectElement(name, options, parent) {
         // create tab
         const containerDiv = document.createElement('div');
         containerDiv.classList.add('tab');
@@ -157,7 +137,7 @@ export default class FormBuilder {
         containerDiv.appendChild(labelTextNode);
         containerDiv.appendChild(pElement);
 
-        return containerDiv;
+        parent.appendChild(containerDiv);
     }
 
     createButtonElements(parent) {
@@ -170,13 +150,13 @@ export default class FormBuilder {
         const prevButton = document.createElement("button");
         prevButton.setAttribute("type", "button");
         prevButton.setAttribute("id", "prevBtn");
-        prevButton.classList.add("btn", "btn-secondary");
+        prevButton.classList.add("btn", "btn-secondary", "mt-3");
         prevButton.textContent = "Previous";
 
         const nextButton = document.createElement("button");
         nextButton.setAttribute("type", "button");
         nextButton.setAttribute("id", "nextBtn");
-        nextButton.classList.add("btn", "btn-primary");
+        nextButton.classList.add("btn", "btn-primary", "mt-3");
         nextButton.textContent = "Next";
 
         floatRightDiv.appendChild(prevButton);
@@ -185,6 +165,17 @@ export default class FormBuilder {
         overflowDiv.appendChild(floatRightDiv);
 
         parent.appendChild(overflowDiv);
+
+        const navigationButtons = [prevButton, nextButton];
+
+        const handleNavigationButtonClick = (event) => {
+            const directionID = event.target.id === "nextBtn" ? 1 : -1;
+            this.nextPrev(directionID);
+        };
+
+        navigationButtons.forEach((navigationButton) => {
+            navigationButton.addEventListener("click", handleNavigationButtonClick);
+        });
     }
 
     createStepIndicators(amountOfSteps, parent) {
@@ -194,7 +185,6 @@ export default class FormBuilder {
         for (let step = 0; step < amountOfSteps; step++) {
             const stepSpan = document.createElement("span");
             stepSpan.classList.add("step");
-            console.log("step!");
             container.appendChild(stepSpan);
         }
 
