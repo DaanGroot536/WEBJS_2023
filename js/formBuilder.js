@@ -29,11 +29,11 @@ export default class FormBuilder {
         ];
 
 
-        this.setupForm(header, formID, numberInputFields, selectInputFields);
+        this.buildForm(header, formID, numberInputFields, selectInputFields);
         this.showTab(this.currentTab);
     }
 
-    setupForm(header, formID, numberInputFields, selectInputFields) {
+    buildForm(header, formID, numberInputFields, selectInputFields) {
         // create form
         const form = document.createElement("form");
         form.setAttribute("id", formID);
