@@ -11,8 +11,8 @@
 }
 
 .truck {
-    border: solid 1px black;
-    height: 20vh;
+  border: solid 1px black;
+  height: 20vh;
 
 }
 
@@ -67,3 +67,10 @@ input.invalid {
   padding: 0.3em;
   transition: 0.1s, 0.2s;
 }
+
+/* .testTruck {
+  -moz-transform: scale(-1, -1);
+  -webkit-transform: scale(-1, -1);
+  -o-transform: scale(-1, -1);
+  transform: scaleX(-1, -1);
+} */

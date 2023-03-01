@@ -1,5 +1,4 @@
 export function drawTetrisShape(targetID, tetrisShape) {
-    console.log(tetrisShape);
     const RectSize = 25;
     const rectColors = [
         "",
@@ -18,7 +17,6 @@ export function drawTetrisShape(targetID, tetrisShape) {
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
             if (tetrisShape.tileArray[i][j].shapeType != 0) {
-                console.log(tetrisShape.tileArray[i][j].shapeType);
                 ctx.rect(0 + ((i + 1) * RectSize), 0 + ((j + 1) * RectSize), RectSize, RectSize);
                 ctx.fillStyle = rectColors[tetrisShape.tileArray[i][j].shapeType];
                 ctx.fill()

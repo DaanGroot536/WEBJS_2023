@@ -5,9 +5,4 @@ export default class TruckContentTile {
         this.Ypos = Ypos;
     }
 
-    setShapeType(shapeType) {
-        this.shapeType = shapeType;
-    }
-
-
 }
