@@ -3,7 +3,7 @@ import { makeDropzone, makeDraggable } from './draganddrop.js';
 import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
-import { drawTetrisShape } from './View/tetrisShapeView.js';
+
 
 window.addEventListener("load", (event) => {
     localStorage.clear();
@@ -58,10 +58,6 @@ export default class BeltMaker {
             beltItem.className = "package";
             newBelt.appendChild(beltItem);
 
-            let imageMaker = new ImageMaker();
-            let rnd = Math.floor(Math.random() * (4 - 0 + 1) + 0)
-            imageMaker.draw(rnd, beltItem, beltcounter);
-
             beltstart.addEventListener('click', (event) => {
                 animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
                 beltstart.disabled = true;
@@ -73,10 +69,10 @@ export default class BeltMaker {
             beltRow.appendChild(btndiv);
             beltRow.appendChild(newBelt);
 
-            TruckGenerator.generateTruck(beltRow, beltcounter);
+            let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter);
 
             beltpanel.appendChild(beltRow);
-            animate(beltcounter, imageMaker, beltItem);
+            animate(beltcounter, beltItem, truckContent);
             this[`beltcounter${currentHall}`]++;
         }
     }

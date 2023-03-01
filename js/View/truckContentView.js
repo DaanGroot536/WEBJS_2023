@@ -1,4 +1,4 @@
-export function drawTruckContent(targetID, truckContent) {
+export function drawTruckContent(targetElement, truckContent) {
     const RectSize = 28;
     const rectColors = [
         "white",
@@ -10,7 +10,7 @@ export function drawTruckContent(targetID, truckContent) {
     ]
     console.log(truckContent);
 
-    let targetElement = document.getElementById(targetID);
+    // let targetElement = document.getElementById(targetID);
     let canvas = document.createElement('canvas');
     canvas.width = (truckContent.contentArray[0].length * RectSize) + 20;
     canvas.height = (truckContent.contentArray.length * RectSize) + 20;

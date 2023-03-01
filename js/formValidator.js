@@ -1,10 +1,10 @@
 export default class FormValidator {
 
-    MIN_LENGTH = 1;
-    MAX_LENGTH = 3;
+    MIN_LENGTH = 5;
+    MAX_LENGTH = 9;
 
-    MIN_WIDTH = 1;
-    MAX_WIDTH = 5;
+    MIN_WIDTH = 4;
+    MAX_WIDTH = 8;
     
     MIN_INTERVAL = 1;
     MAX_INTERVAL = 5;
