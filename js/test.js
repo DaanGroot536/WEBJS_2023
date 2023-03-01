@@ -10,9 +10,6 @@ let tetrisShape3 = new TetrisShape(3, 1);
 let tetrisShape4 = new TetrisShape(4, 2);
 let tetrisShape5 = new TetrisShape(1, 2);
 
-
-
-
 let testBox = "testBox";
 let testBox2 = "testBox2";
 drawTetrisShape(testBox, tetrisShape);

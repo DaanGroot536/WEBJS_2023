@@ -26,7 +26,7 @@ export default class TetrisShape {
 
         switch (this.shapeNumber) {
             case 1:
-                this.shapeOrientation = Math.floor(Math.random() * (2 - 1 + 1) + 0);
+                this.shapeOrientation = Math.floor(Math.random() * (2 - 1) + 1);
                 if (this.shapeOrientation === 1) {
                     this.tileArray[0][1].shapeType = 1;
                     this.tileArray[1][0].shapeType = 1;
@@ -41,7 +41,7 @@ export default class TetrisShape {
                 }
             break;
             case 2:
-                this.shapeOrientation = Math.floor(Math.random() * (4 - 1 + 1) + 0);
+                this.shapeOrientation = Math.floor(Math.random() * (4 - 1) + 1);
                 if (this.shapeOrientation === 1) {
                     this.tileArray[0][0].shapeType = 2;
                     this.tileArray[0][1].shapeType = 2;
@@ -74,7 +74,7 @@ export default class TetrisShape {
                 this.tileArray[1][1].shapeType = 3;
             break;
             case 4:
-                this.shapeOrientation = Math.floor(Math.random() * (2 - 1 + 1) + 0);
+                this.shapeOrientation = Math.floor(Math.random() * (2 - 1) + 1);
                 if (this.shapeOrientation === 1) {
                     this.tileArray[0][0].shapeType = 4;
                     this.tileArray[0][1].shapeType = 4;
@@ -89,7 +89,8 @@ export default class TetrisShape {
                 }
             break;
             case 5:
-                this.shapeOrientation = Math.floor(Math.random() * (4 - 1 + 1) + 0);
+                this.shapeOrientation = Math.floor(Math.random() * (4 - 1) + 1);
+                console.log(this.shapeOrientation);
                 if (this.shapeOrientation === 1) {
                     this.tileArray[0][0].shapeType = 5;
                     this.tileArray[1][0].shapeType = 5;
