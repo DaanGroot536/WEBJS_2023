@@ -23,19 +23,23 @@ export function animate(beltcounter, beltItem, truckContent) {
 
     localStorage.setItem(`shape${beltcounter}`, JSON.stringify(tetrisShape));
     localStorage.setItem(`package${beltcounter}`, 0);
-    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
     localStorage.setItem(`moving${beltcounter}`, true);
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
 }
 
 function move(beltcounter, beltItem, truckContent) {
     const node = document.getElementById(`package${beltcounter}`);
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
-    if (currentPosition == screen.width * 0.5) {
+    if (currentPosition == screen.width * 0.45) {
         localStorage.setItem(`package${beltcounter}`, 0);
-        truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));
+        if (truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`))) === false) {
+            stop(beltcounter);
+        }
+
         let rnd = Math.floor(Math.random() * (5 - 1) + 1);
         let newShape = new TetrisShape(rnd);
         localStorage.setItem(`shape${beltcounter}`, JSON.stringify(newShape));
+
         drawTetrisShape(beltItem, newShape, beltcounter);
         let viewItem = document.getElementById(`canvas${beltcounter}`);
         viewItem.remove();

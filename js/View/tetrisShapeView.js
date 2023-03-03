@@ -12,6 +12,8 @@ export function drawTetrisShape(targetElement, tetrisShape, beltcounter) {
     // let targetElement = document.getElementById(targetID);
     let canvas = document.createElement('canvas');
     canvas.id = `canvas${beltcounter}`;
+    canvas.width = 130;
+    canvas.height = 130;
     targetElement.appendChild(canvas);
     let ctx = canvas.getContext('2d');
 

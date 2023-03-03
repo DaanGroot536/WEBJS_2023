@@ -6,6 +6,7 @@ export default class TruckContent {
         this.width = width;
         this.length = length;
         this.contentArray = new Array();
+        this.full = false;
         this.createContentBase();
     }
 
@@ -44,7 +45,6 @@ export default class TruckContent {
 
                         if (this.contentArray[tempX][tempY].shapeType === 0) {
                             successCounter++;
-                            console.log(successCounter);
                             if (successCounter === filledSpaces.length && success === false) {
                                 console.log('success');
                                 filledSpaces.forEach(filledSpace => {
@@ -58,7 +58,17 @@ export default class TruckContent {
                 successCounter = 0;
             }
         }
+        if (success === false) {
+            this.emptyContent();
+            return false;
+        }
+    }
 
-
+    emptyContent() {
+        for (let k = 0; k < this.contentArray.length; k++) {
+            for (let l = 0; l < this.contentArray[k].length; l++) {
+                this.contentArray[k][l].shapeType = 0;
+            }
+        }
     }
 }
