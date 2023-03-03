@@ -8,7 +8,6 @@ export function drawTruckContent(targetElement, truckContent) {
         "#da8252",
         "#b478e2"
     ]
-    console.log(truckContent);
 
     // let targetElement = document.getElementById(targetID);
     let canvas = document.createElement('canvas');

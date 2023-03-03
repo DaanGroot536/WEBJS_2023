@@ -6,7 +6,7 @@ export default class TruckContent {
         this.width = width;
         this.length = length;
         this.contentArray = new Array();
-        this.full = false;
+        this.isEmptied = false;
         this.createContentBase();
     }
 
@@ -32,7 +32,6 @@ export default class TruckContent {
                 }
             }
         }
-        console.log(filledSpaces);
 
         let successCounter = 0;
         let success = false;
@@ -46,7 +45,6 @@ export default class TruckContent {
                         if (this.contentArray[tempX][tempY].shapeType === 0) {
                             successCounter++;
                             if (successCounter === filledSpaces.length && success === false) {
-                                console.log('success');
                                 filledSpaces.forEach(filledSpace => {
                                     this.contentArray[k + filledSpace.xPos][l + filledSpace.yPos].shapeType = filledSpace.shapeType;
                                 });
@@ -60,6 +58,7 @@ export default class TruckContent {
         }
         if (success === false) {
             this.emptyContent();
+            this.isEmptied = true;
             return false;
         }
     }

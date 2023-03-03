@@ -32,24 +32,29 @@ function move(beltcounter, beltItem, truckContent) {
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
     if (currentPosition == screen.width * 0.45) {
         localStorage.setItem(`package${beltcounter}`, 0);
-        if (truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`))) === false) {
-            stop(beltcounter);
+        if (localStorage.getItem(`moving${beltcounter}`) === 'false') {
+            movePackage(beltcounter);
         }
-
-        let rnd = Math.floor(Math.random() * (5 - 1) + 1);
-        let newShape = new TetrisShape(rnd);
-        localStorage.setItem(`shape${beltcounter}`, JSON.stringify(newShape));
-
-        drawTetrisShape(beltItem, newShape, beltcounter);
+        else {
+            truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));
+        }
         let viewItem = document.getElementById(`canvas${beltcounter}`);
         viewItem.remove();
-
-        localStorage.setItem(`package${beltcounter}`, 0);
         beltItem.style.left = '0px';
 
         let truckDiv = document.getElementById(`truck${beltcounter}`);
         truckDiv.removeChild(truckDiv.children[0]);
+
+        let rnd = Math.floor(Math.random() * (5 - 1) + 1);
+        let newShape = new TetrisShape(rnd);
+        localStorage.setItem(`shape${beltcounter}`, JSON.stringify(newShape));
+        drawTetrisShape(beltItem, newShape, beltcounter);
         drawTruckContent(truckDiv, truckContent);
+        checkTruckContent(truckContent, beltcounter);
+        if (truckContent.isEmptied) {
+            beltItem.innerHTML = '';
+        }
+        localStorage.setItem(`package${beltcounter}`, 0);
     }
     else {
         currentPosition += 1;

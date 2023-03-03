@@ -1,28 +1,27 @@
 import { animate, stop } from "./animation.js";
+import { drawTruckContent } from "./View/truckContentView.js";
 import ImageMaker from "./imagemaker.js";
 
-export function checkTruckContent(truckID) {
+export function checkTruckContent(truckContent, truckID) {
     let truck = document.getElementById("truck" + truckID);
-    let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
-    let content = truck.querySelectorAll('canvas');
-    let space = storedTruck.length * storedTruck.width;
-    if (content.length === space) {
+    if (truckContent.isEmptied) {
         truck.style.display = 'none';
         stop(truckID);
-        startBeltAgain(truckID);
+        startBeltAgain(truckContent, truckID);
     }
 
 }
 
-function startBeltAgain(truckID) {
+function startBeltAgain(truckContent, truckID) {
     let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
-    let truck = document.getElementById("truck" + truckID);
+    let truckDiv = document.getElementById(`truck${truckID}`);
     setTimeout(function () {
-        truck.style.display = 'block';
-        truck.innerHTML = '';
+        truckDiv.style.display = 'block';
+        truckDiv.innerHTML = '';
+        drawTruckContent(truckDiv, truckContent);
         let beltItem = document.getElementById(`package${truckID}`);
-        let imageMaker = new ImageMaker();
-        animate(truckID, imageMaker, beltItem);
+        truckContent.isEmptied = false;
+        animate(truckID, beltItem, truckContent);
     }, (storedTruck.interval * 1000));
 
 }
