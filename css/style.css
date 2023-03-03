@@ -77,7 +77,7 @@ input.invalid {
 
 .testTruck {
   transform: rotate(90deg);
-  margin-left: 20px;
+  margin-top: -80px;
 }
 
 #storageHall canvas {

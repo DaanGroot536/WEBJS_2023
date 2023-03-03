@@ -1,10 +1,10 @@
 export default class FormValidator {
 
-    MIN_LENGTH = 5;
-    MAX_LENGTH = 9;
+    MIN_LENGTH = 4;
+    MAX_LENGTH = 5;
 
-    MIN_WIDTH = 4;
-    MAX_WIDTH = 8;
+    MIN_WIDTH = 7;
+    MAX_WIDTH = 14;
     
     MIN_INTERVAL = 1;
     MAX_INTERVAL = 5;
@@ -71,7 +71,7 @@ export default class FormValidator {
             case "width":
                 if (value <= this.MIN_WIDTH || value > this.MAX_WIDTH) {
                     errorMessage = `Entered value must be between ${this.MIN_WIDTH} and ${this.MAX_WIDTH}.`;
-                } else if (value <= document.querySelector("#length").value) {
+                } else if (value <= parseInt(document.querySelector("#length").value)) {
                     errorMessage = "Width must be higher than length.";
                 }
                 break;

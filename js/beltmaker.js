@@ -65,9 +65,12 @@ export default class BeltMaker {
             });
 
             let beltRow = document.createElement('div');
+            let buffer = document.createElement('div');
+            buffer.className = 'col-1';
             beltRow.className = "row mt-3";
             beltRow.appendChild(btndiv);
             beltRow.appendChild(newBelt);
+            beltRow.appendChild(buffer);
 
             let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter);
 
