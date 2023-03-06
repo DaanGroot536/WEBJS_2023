@@ -1,5 +1,5 @@
 import { WeatherModel } from '../Model/api.js';
-import { checkWeather } from '../truckmanager.js';
+import { checkWeather } from '../Controller/truckController.js';
 
 class weatherController {
     constructor() {

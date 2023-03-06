@@ -1,6 +1,6 @@
 import FormValidator from '../Controller/formValidationController.js';
-import { currentHall } from './hallswitcher.js';
-import BeltMaker from './beltmaker.js';
+import { currentHall } from '../Controller/hallController.js';
+import BeltMaker from '../View/beltView.js';
 
 export default class FormBuilder {
 
