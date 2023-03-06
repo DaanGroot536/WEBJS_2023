@@ -34,10 +34,16 @@ export default class BeltMaker {
             beltstart.className = "btn btn-secondary mt-3";
             beltstart.innerHTML = "Start belt " + beltcounter;
             beltstart.disabled = true;
+            beltstart.id = `startBtn${beltcounter}`;
 
             let beltstop = document.createElement('button');
             beltstop.innerHTML = "Stop belt " + beltcounter;
             beltstop.className = "btn btn-secondary mt-3";
+            beltstop.id = `stopBtn${beltcounter}`;
+
+            let typeLabel = document.createElement('h5');
+            typeLabel.id = `typeLabel${beltcounter}`;
+            typeLabel.classList.add('mt-1');
 
             beltstop.addEventListener('click', (event) => {
                 stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
@@ -47,6 +53,7 @@ export default class BeltMaker {
 
             btndiv.appendChild(beltstart);
             btndiv.appendChild(beltstop);
+            btndiv.appendChild(typeLabel);
 
             let newBelt = document.createElement('div');
             newBelt.className = "conveyorbelt col-7";
@@ -62,6 +69,7 @@ export default class BeltMaker {
             beltRow.appendChild(btndiv);
             beltRow.appendChild(newBelt);
             beltRow.appendChild(buffer);
+            beltpanel.appendChild(beltRow);
 
             let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter, this.truckContentArray, this.storage);
             this.truckContentArray.push(truckContent);
@@ -72,7 +80,6 @@ export default class BeltMaker {
                 beltstop.disabled = false;
             });
 
-            beltpanel.appendChild(beltRow);
             animate(beltcounter, beltItem, truckContent, this.storage, this.truckContentArray);
             this[`beltcounter${currentHall}`]++;
         }

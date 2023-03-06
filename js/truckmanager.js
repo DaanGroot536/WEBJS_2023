@@ -9,6 +9,7 @@ export function checkTruckContent(truckContent, truckID, truckContentArray, stor
             let currPack = document.getElementById(`package${truckID}`);
             currPack.innerHTML = '';
         }
+        document.getElementById(`stopBtn${truckID}`).disabled = true;
         stop(truckID);
         startBeltAgain(truckContent, truckID, truckContentArray, storageHall);
     }
@@ -22,7 +23,7 @@ function startBeltAgain(truckContent, truckID, truckContentArray, storageHall) {
         truckDiv.style.display = 'block';
         truckDiv.innerHTML = '';
         drawTruckContent(truckDiv, truckContent, truckID, truckContentArray, storageHall);
-
+        document.getElementById(`stopBtn${truckID}`).disabled = false;
         let beltItem = document.getElementById(`package${truckID}`);
         truckContent.isEmptied = false;
         animate(truckID, beltItem, truckContent, storageHall, truckContentArray);
