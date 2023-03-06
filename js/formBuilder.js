@@ -252,12 +252,11 @@ export default class FormBuilder {
         const h5a = document.createElement("h5");
         h5a.setAttribute("id", "description");
 
-        h3.appendChild(h5a);
-
         const h5b = document.createElement("h5");
         h5b.setAttribute("id", "windspeed");
 
         div.appendChild(h3);
+        div.appendChild(h5a);
         div.appendChild(h5b);
 
         parent.appendChild(div);

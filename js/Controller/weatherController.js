@@ -44,11 +44,10 @@ class weatherController {
                 this.errorMessageElement.textContent = "";
                 this.errorMessageElement.classList.remove("active");
             })
-            .catch((error) => {
+            .catch(() => {
                 // show error
                 this.errorMessageElement.classList.add("active");
                 this.errorMessageElement.textContent = "City not found";
-                
             });
     }
 
