@@ -1,26 +1,28 @@
 import { animate, stop } from "./animation.js";
 import { drawTruckContent } from "./View/truckContentView.js";
 
-export function checkTruckContent(truckContent, truckID, truckContentArray) {
+export function checkTruckContent(truckContent, truckID, truckContentArray, storageHall) {
     let truck = document.getElementById("truck" + truckID);
     if (truckContent.isEmptied) {
         truck.style.display = 'none';
         stop(truckID);
-        startBeltAgain(truckContent, truckID, truckContentArray);
+        startBeltAgain(truckContent, truckID, truckContentArray, storageHall);
     }
 
 }
 
-function startBeltAgain(truckContent, truckID, truckContentArray) {
+function startBeltAgain(truckContent, truckID, truckContentArray, storageHall) {
     let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
     let truckDiv = document.getElementById(`truck${truckID}`);
     setTimeout(function () {
         truckDiv.style.display = 'block';
         truckDiv.innerHTML = '';
-        drawTruckContent(truckDiv, truckContent, truckID, truckContentArray);
+        drawTruckContent(truckDiv, truckContent, truckID, truckContentArray, storageHall);
+        console.log(truckContentArray);
+
         let beltItem = document.getElementById(`package${truckID}`);
         truckContent.isEmptied = false;
-        animate(truckID, beltItem, truckContent);
+        animate(truckID, beltItem, truckContent, storageHall, truckContentArray);
     }, (storedTruck.interval * 1000));
 
 }

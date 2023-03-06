@@ -13,7 +13,7 @@ export function makeDraggable(dragItem) {
     dragItem.draggable = "true";
 }
 
-export function makeDropzone(dropZone, truckContentArray) {
+export function makeDropzone(dropZone, truckContentArray, storageHall) {
     dropZone.addEventListener('dragover', (event) => {
         event.preventDefault();
     });
@@ -22,16 +22,12 @@ export function makeDropzone(dropZone, truckContentArray) {
         let dropID = event.target.id;
         let ID = dropID.substr(dropID.length - 1);
         let truckContent = truckContentArray[ID];
-        console.log(dropID);
-        console.log(ID);
-        console.log(truckContentArray);
-        console.log(truckContentArray[ID]);
 
         truckContent.addShape(tempShape);
         let truckID = `truck${ID}`;
         let truckDiv = document.getElementById(truckID);
         truckDiv.removeChild(truckDiv.children[0]);
-        drawTruckContent(document.getElementById(truckID), truckContent, ID, truckContentArray);
-        checkTruckContent(truckContent, ID, truckContentArray);
+        drawTruckContent(document.getElementById(truckID), truckContent, ID, truckContentArray, storageHall);
+        checkTruckContent(truckContent, ID, truckContentArray, storageHall);
     });
 }

@@ -5,7 +5,7 @@ import { drawTruckContent } from '../View/truckContentView.js';
 export default class TruckGenerator {
     static sizing = 25;
 
-    static generateTruck(beltRow, truckIndex, truckContentArray) {
+    static generateTruck(beltRow, truckIndex, truckContentArray, storageHall) {
         const length = parseInt(JSON.parse(localStorage.getItem(`temptruck`)).length);
         const width = parseInt(JSON.parse(localStorage.getItem(`temptruck`)).width);
         // const type = JSON.parse(localStorage.getItem(`temptruck`)).type;
@@ -16,7 +16,7 @@ export default class TruckGenerator {
 
         beltRow.appendChild(truckDiv);
 
-        drawTruckContent(truckDiv, truckContent, truckIndex, truckContentArray);
+        drawTruckContent(truckDiv, truckContent, truckIndex, truckContentArray, storageHall);
         return truckContent;
         // let truck = this.createBody(width, length, type);
         // truckDiv.className = 'col-4';

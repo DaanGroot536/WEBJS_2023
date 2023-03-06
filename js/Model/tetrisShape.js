@@ -90,7 +90,6 @@ export default class TetrisShape {
             break;
             case 5:
                 this.shapeOrientation = Math.floor(Math.random() * (4 - 1) + 1);
-                console.log(this.shapeOrientation);
                 if (this.shapeOrientation === 1) {
                     this.tileArray[0][0].shapeType = 5;
                     this.tileArray[1][0].shapeType = 5;

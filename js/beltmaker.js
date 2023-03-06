@@ -3,23 +3,19 @@ import { makeDropzone, makeDraggable } from './draganddrop.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
 import StorageHall from './Model/storageHall.js';
+import { drawStorageHall } from './View/storageHallView.js';
 
-
-window.addEventListener("load", (event) => {
-    localStorage.clear();
-});
 setHalls();
-
-window.addEventListener("load", (event) => {
-    localStorage.clear();
-});
 
 export default class BeltMaker {
     constructor() {
+        localStorage.clear();
         this.beltcounter1 = 0;
         this.beltcounter2 = 3;
         this.storage = new StorageHall();
+        this.storage.seedHall();
         this.truckContentArray = new Array();
+        drawStorageHall(this.storage);
     }
 
     addBelt(currentHall) {
@@ -43,7 +39,7 @@ export default class BeltMaker {
             let beltstop = document.createElement('button');
             beltstop.innerHTML = "Stop belt " + beltcounter;
             beltstop.className = "btn btn-secondary mt-3";
-            
+
             beltstop.addEventListener('click', (event) => {
                 stop(beltstop.innerHTML.charAt(beltstop.innerHTML.length - 1));
                 beltstart.disabled = false;
@@ -68,7 +64,7 @@ export default class BeltMaker {
             beltRow.appendChild(newBelt);
             beltRow.appendChild(buffer);
 
-            let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter, this.truckContentArray);
+            let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter, this.truckContentArray, this.storage);
             this.truckContentArray.push(truckContent);
 
             beltstart.addEventListener('click', (event) => {

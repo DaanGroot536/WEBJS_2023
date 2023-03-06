@@ -17,7 +17,7 @@ export function animate(beltcounter, beltItem, truckContent, storageHall, truckC
     localStorage.setItem(`package${beltcounter}`, item);
     // const truck = document.getElementById(`truck${beltcounter}`);
 
-    let rnd = Math.floor(Math.random() * (5 - 1) + 1);
+    let rnd = Math.floor(Math.random() * (6 - 1) + 1);
     let tetrisShape = new TetrisShape(rnd);
     drawTetrisShape(beltItem, tetrisShape, beltcounter);
 
@@ -50,11 +50,11 @@ function move(beltcounter, beltItem, truckContent, storageHall, truckContentArra
         let truckDiv = document.getElementById(`truck${beltcounter}`);
         truckDiv.removeChild(truckDiv.children[0]);
 
-        let rnd = Math.floor(Math.random() * (5 - 1) + 1);
+        let rnd = Math.floor(Math.random() * (6 - 1) + 1);
         let newShape = new TetrisShape(rnd);
         localStorage.setItem(`shape${beltcounter}`, JSON.stringify(newShape));
         drawTetrisShape(beltItem, newShape, beltcounter);
-        drawTruckContent(truckDiv, truckContent, beltcounter, truckContentArray);
+        drawTruckContent(truckDiv, truckContent, beltcounter, truckContentArray, storageHall);
         checkTruckContent(truckContent, beltcounter, truckContentArray);
         if (truckContent.isEmptied) {
             beltItem.innerHTML = '';
