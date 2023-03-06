@@ -27,6 +27,10 @@ export function animate(beltcounter, beltItem, truckContent) {
     intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
 }
 
+export function restart(beltcounter, beltItem, truckContent) {
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
+}
+
 function move(beltcounter, beltItem, truckContent) {
     const node = document.getElementById(`package${beltcounter}`);
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));

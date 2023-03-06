@@ -1,8 +1,8 @@
-import { animate, stop } from './animation.js';
+import { animate, restart, stop } from './animation.js';
 import { makeDropzone, makeDraggable } from './draganddrop.js';
-import ImageMaker from './imagemaker.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
+import StorageHall from './Model/storageHall.js';
 
 
 window.addEventListener("load", (event) => {
@@ -18,6 +18,7 @@ export default class BeltMaker {
     constructor() {
         this.beltcounter1 = 0;
         this.beltcounter2 = 3;
+        this.storage = new StorageHall();
     }
 
     addBelt(currentHall) {
@@ -58,12 +59,6 @@ export default class BeltMaker {
             beltItem.className = "package";
             newBelt.appendChild(beltItem);
 
-            beltstart.addEventListener('click', (event) => {
-                animate(beltstart.innerHTML.charAt(beltstart.innerHTML.length - 1), imageMaker, beltItem);
-                beltstart.disabled = true;
-                beltstop.disabled = false;
-            });
-
             let beltRow = document.createElement('div');
             let buffer = document.createElement('div');
             buffer.className = 'col-1';
@@ -73,6 +68,12 @@ export default class BeltMaker {
             beltRow.appendChild(buffer);
 
             let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter);
+
+            beltstart.addEventListener('click', (event) => {
+                restart(beltcounter, beltItem, truckContent);
+                beltstart.disabled = true;
+                beltstop.disabled = false;
+            });
 
             beltpanel.appendChild(beltRow);
             animate(beltcounter, beltItem, truckContent);
