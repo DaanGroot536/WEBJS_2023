@@ -28,6 +28,6 @@ export function makeDropzone(dropZone, truckContentArray, storageHall) {
         let truckDiv = document.getElementById(truckID);
         truckDiv.removeChild(truckDiv.children[0]);
         drawTruckContent(document.getElementById(truckID), truckContent, ID, truckContentArray, storageHall);
-        checkTruckContent(truckContent, ID, truckContentArray, storageHall);
+        checkTruckContent(truckContent, ID, truckContentArray, storageHall, true);
     });
 }

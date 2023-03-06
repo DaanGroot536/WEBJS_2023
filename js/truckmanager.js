@@ -1,10 +1,14 @@
 import { animate, stop } from "./animation.js";
 import { drawTruckContent } from "./View/truckContentView.js";
 
-export function checkTruckContent(truckContent, truckID, truckContentArray, storageHall) {
+export function checkTruckContent(truckContent, truckID, truckContentArray, storageHall, bool) {
     let truck = document.getElementById("truck" + truckID);
     if (truckContent.isEmptied) {
         truck.style.display = 'none';
+        if (bool) {
+            let currPack = document.getElementById(`package${truckID}`);
+            currPack.innerHTML = '';
+        }
         stop(truckID);
         startBeltAgain(truckContent, truckID, truckContentArray, storageHall);
     }
