@@ -1,4 +1,3 @@
-import { movePackage } from "./packagemover.js";
 import { checkTruckContent } from "./truckmanager.js";
 import { drawTetrisShape } from "./View/tetrisShapeView.js";
 import TetrisShape from "./Model/tetrisShape.js";
@@ -40,7 +39,6 @@ function move(beltcounter, beltItem, truckContent, storageHall) {
         if (localStorage.getItem(`moving${beltcounter}`) === 'false') {
             storageHall.updateStorage(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));
             drawStorageHall(storageHall);
-            // movePackage(beltcounter);
         }
         else {
             truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));
