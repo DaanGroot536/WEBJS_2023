@@ -1,8 +1,8 @@
-import { checkTruckContent } from "./truckmanager.js";
-import { drawTetrisShape } from "./View/tetrisShapeView.js";
-import TetrisShape from "./Model/tetrisShape.js";
-import { drawTruckContent } from "./View/truckContentView.js";
-import { drawStorageHall } from "./View/storageHallView.js";
+import { checkTruckContent } from "./truckController.js";
+import { drawTetrisShape } from "../View/tetrisShapeView.js";
+import TetrisShape from "../Model/tetrisShape.js";
+import { drawTruckContent } from "../View/truckContentView.js";
+import { drawStorageHall } from "../View/storageHallView.js";
 
 let intervals = new Array();
 let positions = new Array();

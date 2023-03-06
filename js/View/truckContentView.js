@@ -1,4 +1,4 @@
-import { makeDropzone } from "../draganddrop.js";
+import { makeDropzone } from "../Controller/dragDropController.js";
 
 export function drawTruckContent(targetElement, truckContent, truckID, truckContentArray, storageHall) {
     const RectSize = 28;

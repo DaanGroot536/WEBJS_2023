@@ -1,8 +1,8 @@
-import { animate, restart, stop } from './animation.js';
-import { setHalls } from './hallswitcher.js';
-import TruckGenerator from './View/truckViewGenerator.js';
-import StorageHall from './Model/storageHall.js';
-import { drawStorageHall } from './View/storageHallView.js';
+import { animate, restart, stop } from '../Controller/animationController.js';
+import { setHalls } from '../Controller/hallController.js';
+import TruckGenerator from './truckViewGenerator.js';
+import StorageHall from '../Model/storageHall.js';
+import { drawStorageHall } from './storageHallView.js';
 
 setHalls();
 

@@ -20,31 +20,6 @@ export default class TruckGenerator {
         drawTruckContent(truckDiv, truckContent, truckIndex, truckContentArray, storageHall);
         return truckContent;
     }
-
-    static createBody(width, height, type) {
-        const div = document.createElement('div');
-        div.style.width = (width * this.sizing) + 5 + 'px';
-        div.style.height = height * this.sizing + 'px';
-        div.style.backgroundColor = this.getColor(type);
-        return div;
-    }
-
-    static getColor(type) {
-        switch (type) {
-            case 'cold':
-                return '#87CEEB'
-            case 'fragile':
-                return '#D8BFD8'
-            case 'quick':
-                return '#FF6347'
-            case 'pallet':
-                return '#8B4513'
-            case 'general':
-                return '#C0C0C0'
-            default:
-                break;
-        }
-    }
 }
 
 export const TruckViewGenerator = {

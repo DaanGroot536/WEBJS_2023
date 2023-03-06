@@ -1,5 +1,5 @@
 import { drawTetrisShape } from "./tetrisShapeView.js";
-import { makeDraggable } from "../draganddrop.js";
+import { makeDraggable } from "../Controller/dragDropController.js";
 
 export function drawStorageHall(storageHall) {
     let length = storageHall.hallArray.length;

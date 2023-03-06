@@ -1,5 +1,5 @@
-import { checkTruckContent } from "./truckmanager.js";
-import { drawTruckContent } from "./View/truckContentView.js";
+import { checkTruckContent } from "./truckController.js";
+import { drawTruckContent } from "../View/truckContentView.js";
 let dragID = 0;
 let tempShape = '';
 

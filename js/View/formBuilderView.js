@@ -1,4 +1,4 @@
-import FormValidator from './formValidator.js';
+import FormValidator from '../Controller/formValidationController.js';
 import { currentHall } from './hallswitcher.js';
 import BeltMaker from './beltmaker.js';
 

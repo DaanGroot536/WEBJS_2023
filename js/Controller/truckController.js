@@ -1,5 +1,5 @@
-import { animate, stop } from "./animation.js";
-import { drawTruckContent } from "./View/truckContentView.js";
+import { animate, stop } from "./animationController.js";
+import { drawTruckContent } from "../View/truckContentView.js";
 
 export function checkTruckContent(truckContent, truckID, truckContentArray, storageHall, bool) {
     let truck = document.getElementById("truck" + truckID);
