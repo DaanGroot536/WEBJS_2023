@@ -2,12 +2,15 @@ import { WeatherModel } from '../Model/api.js';
 import { checkWeather } from '../truckmanager.js';
 
 class weatherController {
-    weatherButton = document.querySelector("#weatherBtn");
-    cityInput = document.querySelector("#city-input");
-    error = document.querySelector("#cityerror");
-    errorMessageElement = document.getElementById('cityerror');
-
     constructor() {
+        this.weatherButton = document.querySelector("#weatherNextBtn");
+        this.cityInput = document.querySelector("#weather");
+        this.errorMessageElement = document.getElementById('weathererror');
+    
+        this.descriptionElement = document.getElementById('description');
+        this.tempElement = document.getElementById('temp');
+        this.windElement = document.getElementById('windspeed');
+
         this.setupEventListeners();
     }
 
@@ -15,7 +18,7 @@ class weatherController {
         const inputField = document.getElementById("weatherForm")
         inputField.addEventListener("keydown", function(e) {
             if (e.key === "Enter") {
-              e.preventDefault();
+              e.preventDefault(); // disable enter key
             }
           });
 
@@ -26,6 +29,12 @@ class weatherController {
 
     getLocalWeather() {
         const city = this.cityInput.value;
+
+        if (city.trim() === '') {
+            this.errorMessageElement.textContent = "Please enter a city name";
+            this.errorMessageElement.classList.add("active");
+            return;
+        }
 
         WeatherModel.fetchWeather(city)
             .then((weatherData) => {
@@ -38,19 +47,19 @@ class weatherController {
             .catch((error) => {
                 // show error
                 this.errorMessageElement.classList.add("active");
-                this.errorMessageElement.textContent = error;
+                this.errorMessageElement.textContent = "City not found";
+                
             });
     }
 
     showWeather(weatherData) {
+        // disable trucks if needed
         checkWeather(weatherData);
-        const descriptionElement = document.getElementById('description');
-        const tempElement = document.getElementById('temp');
-        const windElement = document.getElementById('windspeed');
-      
-        descriptionElement.textContent = weatherData.description;
-        tempElement.textContent = `${weatherData.celsius}°C`;
-        windElement.textContent = `Windspeed: ${weatherData.wind}`;
+
+        // update weather elements
+        this.descriptionElement.textContent = `Weather: ${weatherData.description}`;
+        this.tempElement.textContent = `${weatherData.celsius}°C`;
+        this.windElement.textContent = `Windspeed: ${weatherData.wind}`;
     }
 }
 

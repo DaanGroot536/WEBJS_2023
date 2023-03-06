@@ -32,9 +32,8 @@ export default class FormValidator {
         // reset input class
         inputElement.classList = [];
 
-        const errorMessageElement = document.getElementById(`${inputElement.name}error`);
-
-        if (this.validateInputValue(inputElement, errorMessageElement)) {
+        const errorMessageElement = document.getElementById(`${inputElement.id}error`);
+        if (this.validateTruckInputValue(inputElement, errorMessageElement)) {
             // hide error message
             errorMessageElement.textContent = "";
             errorMessageElement.classList.remove("active");
@@ -52,8 +51,8 @@ export default class FormValidator {
         return valid;
     }
 
-    validateInputValue(inputElement, errorMessageElement) {
-        const name = inputElement.name;
+    validateTruckInputValue(inputElement, errorMessageElement) {
+        const name = inputElement.id;
         const value = inputElement.value;
         let errorMessage = '';
 
