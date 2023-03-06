@@ -1,28 +1,33 @@
 import { checkTruckContent } from "./truckmanager.js";
-let tempCanvas = 0;
+import { drawTruckContent } from "./View/truckContentView.js";
+let dragID = 0;
+let tempShape = '';
 
 export function makeDraggable(dragItem) {
-    dragItem.addEventListener('drag', function () {
-        tempCanvas = dragItem;
+    dragItem.addEventListener('drag', (event) => {
+        dragID = event.target.id;
+        let storage = JSON.parse(localStorage.getItem('storageHall'));
+        let ID = dragID.substr(dragID.length - 1);
+        tempShape = storage[ID];
     });
     dragItem.draggable = "true";
 }
 
-export function makeDropzone(dropZone) {
+export function makeDropzone(dropZone, truckContentArray, storageHall) {
     dropZone.addEventListener('dragover', (event) => {
         event.preventDefault();
     });
-    
+
     dropZone.addEventListener('drop', (event) => {
-        let truckID = dropZone.id.slice(5,6);
-        event.preventDefault();
-        let newCanvas = document.createElement('canvas');
-        newCanvas.width = 100;
-        newCanvas.height = 100;
-        dropZone.appendChild(newCanvas);
-        let newCtx = newCanvas.getContext('2d');
-        newCtx.drawImage(tempCanvas, 0, 0);
-        tempCanvas = 0;
-        checkTruckContent(truckID);
+        let dropID = event.target.id;
+        let ID = dropID.substr(dropID.length - 1);
+        let truckContent = truckContentArray[ID];
+
+        truckContent.addShape(tempShape);
+        let truckID = `truck${ID}`;
+        let truckDiv = document.getElementById(truckID);
+        truckDiv.removeChild(truckDiv.children[0]);
+        drawTruckContent(document.getElementById(truckID), truckContent, ID, truckContentArray, storageHall);
+        checkTruckContent(truckContent, ID, truckContentArray, storageHall, true);
     });
 }

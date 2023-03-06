@@ -1,28 +1,32 @@
 import { animate, stop } from "./animation.js";
-import ImageMaker from "./imagemaker.js";
+import { drawTruckContent } from "./View/truckContentView.js";
 
-export function checkTruckContent(truckID) {
+export function checkTruckContent(truckContent, truckID, truckContentArray, storageHall, bool) {
     let truck = document.getElementById("truck" + truckID);
-    let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
-    let content = truck.querySelectorAll('canvas');
-    let space = storedTruck.length * storedTruck.width;
-    if (content.length === space) {
+    if (truckContent.isEmptied) {
         truck.style.display = 'none';
+        if (bool) {
+            let currPack = document.getElementById(`package${truckID}`);
+            currPack.innerHTML = '';
+        }
         stop(truckID);
-        startBeltAgain(truckID);
+        startBeltAgain(truckContent, truckID, truckContentArray, storageHall);
     }
 
 }
 
-function startBeltAgain(truckID) {
+function startBeltAgain(truckContent, truckID, truckContentArray, storageHall) {
     let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
-    let truck = document.getElementById("truck" + truckID);
+    let truckDiv = document.getElementById(`truck${truckID}`);
     setTimeout(function () {
-        truck.style.display = 'block';
-        truck.innerHTML = '';
+        truckDiv.style.display = 'block';
+        truckDiv.innerHTML = '';
+        drawTruckContent(truckDiv, truckContent, truckID, truckContentArray, storageHall);
+        console.log(truckContentArray);
+
         let beltItem = document.getElementById(`package${truckID}`);
-        let imageMaker = new ImageMaker();
-        animate(truckID, imageMaker, beltItem);
+        truckContent.isEmptied = false;
+        animate(truckID, beltItem, truckContent, storageHall, truckContentArray);
     }, (storedTruck.interval * 1000));
 
 }
@@ -42,26 +46,25 @@ export function checkWeather(weatherData) {
 function checkRoadClearance(truckID, truck, weatherData) {
     if (localStorage.getItem(`moving${truckID}`) == 'false') {
         localStorage.setItem(`moving${truckID}`, 'true');
-        document.getElementById('truck'+truckID).style.border = '1px solid black';
     }
 
     switch (truck.type) {
         case 'cold':
             if (weatherData.celsius >= 35) {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
         case 'fragile':
             if (weatherData.description === 'Rain' || weatherData.description === 'Snow') {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
         case 'pallet':
             if (weatherData.wind > 10) {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
     }
