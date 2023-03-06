@@ -18,7 +18,6 @@ export function drawTruckContent(targetElement, truckContent, truckID, truckCont
     targetElement.appendChild(canvas);
     canvas.className = 'testTruck';
     canvas.id = `truck${truckID}`;
-    console.log(truckContentArray);
 
     makeDropzone(canvas, truckContentArray, storageHall);
     let ctx = canvas.getContext('2d');

@@ -22,7 +22,6 @@ function startBeltAgain(truckContent, truckID, truckContentArray, storageHall) {
         truckDiv.style.display = 'block';
         truckDiv.innerHTML = '';
         drawTruckContent(truckDiv, truckContent, truckID, truckContentArray, storageHall);
-        console.log(truckContentArray);
 
         let beltItem = document.getElementById(`package${truckID}`);
         truckContent.isEmptied = false;
