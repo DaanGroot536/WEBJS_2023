@@ -41,26 +41,25 @@ export function checkWeather(weatherData) {
 function checkRoadClearance(truckID, truck, weatherData) {
     if (localStorage.getItem(`moving${truckID}`) == 'false') {
         localStorage.setItem(`moving${truckID}`, 'true');
-        document.getElementById('truck'+truckID).style.border = '1px solid black';
     }
 
     switch (truck.type) {
         case 'cold':
             if (weatherData.celsius >= 35) {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
         case 'fragile':
             if (weatherData.description === 'Rain' || weatherData.description === 'Snow') {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
         case 'pallet':
             if (weatherData.wind > 10) {
                 localStorage.setItem(`moving${truckID}`, 'false');
-                document.getElementById('truck'+truckID).style.border = '1px solid red';
+                document.getElementById('truck'+truckID).style.borderRight = '1px solid red';
             }
         break;
     }

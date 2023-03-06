@@ -3,6 +3,7 @@ import { checkTruckContent } from "./truckmanager.js";
 import { drawTetrisShape } from "./View/tetrisShapeView.js";
 import TetrisShape from "./Model/tetrisShape.js";
 import { drawTruckContent } from "./View/truckContentView.js";
+import { drawStorageHall } from "./View/storageHallView.js";
 
 let intervals = new Array();
 let positions = new Array();
@@ -11,7 +12,7 @@ for (let i = 0; i < 6; i++) {
     positions[i] = 0;
 }
 
-export function animate(beltcounter, beltItem, truckContent) {
+export function animate(beltcounter, beltItem, truckContent, storageHall) {
     const position = positions[beltcounter];
     const item = position !== 0 ? position : 0;
     localStorage.setItem(`package${beltcounter}`, item);
@@ -24,20 +25,22 @@ export function animate(beltcounter, beltItem, truckContent) {
     localStorage.setItem(`shape${beltcounter}`, JSON.stringify(tetrisShape));
     localStorage.setItem(`package${beltcounter}`, 0);
     localStorage.setItem(`moving${beltcounter}`, true);
-    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall);
 }
 
-export function restart(beltcounter, beltItem, truckContent) {
-    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent);
+export function restart(beltcounter, beltItem, truckContent, storageHall) {
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall);
 }
 
-function move(beltcounter, beltItem, truckContent) {
+function move(beltcounter, beltItem, truckContent, storageHall) {
     const node = document.getElementById(`package${beltcounter}`);
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
     if (currentPosition == screen.width * 0.45) {
         localStorage.setItem(`package${beltcounter}`, 0);
         if (localStorage.getItem(`moving${beltcounter}`) === 'false') {
-            movePackage(beltcounter);
+            storageHall.updateStorage(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));
+            drawStorageHall(storageHall);
+            // movePackage(beltcounter);
         }
         else {
             truckContent.addShape(JSON.parse(localStorage.getItem(`shape${beltcounter}`)));

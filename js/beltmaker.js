@@ -70,13 +70,13 @@ export default class BeltMaker {
             let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter);
 
             beltstart.addEventListener('click', (event) => {
-                restart(beltcounter, beltItem, truckContent);
+                restart(beltcounter, beltItem, truckContent, this.storage);
                 beltstart.disabled = true;
                 beltstop.disabled = false;
             });
 
             beltpanel.appendChild(beltRow);
-            animate(beltcounter, beltItem, truckContent);
+            animate(beltcounter, beltItem, truckContent, this.storage);
             this[`beltcounter${currentHall}`]++;
         }
     }
