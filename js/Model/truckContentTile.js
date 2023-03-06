@@ -4,5 +4,4 @@ export default class TruckContentTile {
         this.xPos = xPos;
         this.yPos = yPos;
     }
-
 }

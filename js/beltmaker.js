@@ -1,5 +1,4 @@
 import { animate, restart, stop } from './animation.js';
-import { makeDropzone, makeDraggable } from './draganddrop.js';
 import { setHalls } from './hallswitcher.js';
 import TruckGenerator from './View/truckViewGenerator.js';
 import StorageHall from './Model/storageHall.js';

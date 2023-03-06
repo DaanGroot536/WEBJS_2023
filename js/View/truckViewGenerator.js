@@ -1,4 +1,3 @@
-import { makeDropzone } from "../draganddrop.js";
 import TruckContent from '../Model/truckContent.js';
 import { drawTruckContent } from '../View/truckContentView.js';
 
@@ -18,12 +17,6 @@ export default class TruckGenerator {
 
         drawTruckContent(truckDiv, truckContent, truckIndex, truckContentArray, storageHall);
         return truckContent;
-        // let truck = this.createBody(width, length, type);
-        // truckDiv.className = 'col-4';
-        // truck.id = `truck${truckIndex}`;
-        // truck.classList.add("truck");
-        // makeDropzone(truck);
-        // truckDiv.appendChild(truck);
     }
 
     static createBody(width, height, type) {

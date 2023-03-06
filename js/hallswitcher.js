@@ -1,6 +1,5 @@
 let currentHall = 1;
 
-
 export function setHalls() {
     let hallBtn = document.getElementById('hallbtn');
     let hall1 = document.getElementById('hall1');
