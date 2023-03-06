@@ -10,15 +10,21 @@ export default class FormBuilder {
         formValidator = fv;
         beltMaker = bm;
 
-        const header = "Register Truck:";
-        const formID = "truckForm";
-        const numberInputFields = [
+        this.initForms();
+        this.showTab(this.currentTab);
+    }
+
+    initForms() {
+        // create truck form
+        const truckHeader = "Register Truck:";
+        const truckFormID = "truck";
+        const truckNumberFields = [
             ["length", "number", "Length (Y axis):"],
             ["width", "number", "Width (X axis):"],
             ["interval", "number", "Truck Interval:"]
         ];
 
-        const selectInputFields = [
+        const truckSelectInputFields = [
             ["Load Type: ", [
                 { value: 'cold', label: 'Cold transport' },
                 { value: 'fragile', label: 'Fragile transport' },
@@ -28,15 +34,24 @@ export default class FormBuilder {
             ]]
         ];
 
+        this.buildForm(truckHeader, truckFormID, true, truckNumberFields, truckSelectInputFields);
 
-        this.buildForm(header, formID, numberInputFields, selectInputFields);
-        this.showTab(this.currentTab);
+        // create weather form
+        const weatherHeader = "Check Weather:";
+        const weatherformID = "weather";
+        const weatherInputFields = [
+            ["weather", "text", "City:"]
+        ];
+
+        this.buildForm(weatherHeader, weatherformID, false, weatherInputFields)
+
+
     }
 
-    buildForm(header, formID, numberInputFields, selectInputFields) {
-        // create form
+    buildForm(header, formID, hasTabs = false, inputFields = [], selectInputFields = []) {
+        // create base form
         const form = document.createElement("form");
-        form.setAttribute("id", formID);
+        form.setAttribute("id", `${formID}Form`);
         form.setAttribute("class", "card card-body mt-3 ml-3 col-3");
 
         // get base area
@@ -46,22 +61,30 @@ export default class FormBuilder {
         // create header
         this.createHeader(header, form);
 
-        // create input fields
-        numberInputFields.forEach((element) => {
-            const field = this.createInputElement(element[0], element[1], element[2], form);
+        // create input fields if any
+        inputFields.forEach((element) => {
+            this.createInputElement(element[0], element[1], element[2], form, hasTabs);
         });
 
-        // create select fields
+        // create select fields if any
         selectInputFields.forEach((element) => {
-            const field = this.createSelectElement(element[0], element[1], form);
+            this.createSelectElement(element[0], element[1], form);
         })
 
         // create buttons
-        this.createButtonElements(form);
+        this.createButtonElements(form, hasTabs, formID);
 
-        // create step indicators
-        const amountOfSteps = numberInputFields.length + selectInputFields.length
-        this.createStepIndicators(amountOfSteps, form);
+        // create step indicators if needed
+        const amountOfSteps = inputFields.length + selectInputFields.length;
+        if (amountOfSteps > 1) {
+            this.createStepIndicators(amountOfSteps, form);
+        }
+
+        // add descriptive text to weather form
+        // TODO: remove, ugly code
+        if (formID === "weather") {
+            this.addDescriptiveText(form);
+        }
     }
 
     createHeader(textContent, parentElement) {
@@ -73,7 +96,7 @@ export default class FormBuilder {
         parentElement.appendChild(header);
     }
 
-    createInputElement(name, type, title, parent) {
+    createInputElement(name, type, title, parent, hasTabs) {
         // Create elements
         const div = document.createElement("div");
         const label = document.createElement("label");
@@ -82,7 +105,10 @@ export default class FormBuilder {
         const error = document.createElement("span");
 
         // Set attributes and text content
-        div.classList.add("tab");
+        if (hasTabs) {
+            div.classList.add("tab");
+        }
+
         label.textContent = title;
         label.htmlFor = name;
         error.classList.add("error", "float-right");
@@ -101,12 +127,14 @@ export default class FormBuilder {
 
         parent.appendChild(div);
 
-        const handleInput = (event) => {
-            formValidator.validateForm(this.currentTab);
-            formValidator.preventNonNumericInput(event);
-        };
-
-        input.addEventListener("input", handleInput);
+        if(hasTabs) {
+            const handleInput = (event) => {
+                formValidator.validateForm(this.currentTab);
+                formValidator.preventNonNumericInput(event);
+            };
+    
+            input.addEventListener("input", handleInput);
+        }
     }
 
     createSelectElement(name, options, parent) {
@@ -119,7 +147,7 @@ export default class FormBuilder {
 
         // create select element
         const selectElement = document.createElement('select');
-        selectElement.setAttribute('id', name.toLowerCase());
+        selectElement.setAttribute('id', "trucktype"); // TODO: hardcoded value
 
         // create option elements
         options.forEach(option => {
@@ -140,42 +168,61 @@ export default class FormBuilder {
         parent.appendChild(containerDiv);
     }
 
-    createButtonElements(parent) {
+    createButtonElements(parent, hasTabs, header) {
+        // create container
         const overflowDiv = document.createElement("div");
         overflowDiv.classList.add("overflow-auto");
 
+        // align buttons
         const floatRightDiv = document.createElement("div");
         floatRightDiv.classList.add("float-right");
 
-        const prevButton = document.createElement("button");
-        prevButton.setAttribute("type", "button");
-        prevButton.setAttribute("id", "prevBtn");
-        prevButton.classList.add("btn", "btn-secondary", "mt-3");
-        prevButton.textContent = "Previous";
+        // initialize empty array for navigation buttons
+        const navigationButtons = []
 
+        // create continue/submit button
         const nextButton = document.createElement("button");
         nextButton.setAttribute("type", "button");
-        nextButton.setAttribute("id", "nextBtn");
+        nextButton.setAttribute("id", `${header}NextBtn`);
         nextButton.classList.add("btn", "btn-primary", "mt-3");
-        nextButton.textContent = "Next";
+        nextButton.textContent = "Submit";
 
-        floatRightDiv.appendChild(prevButton);
+        // if the form has tabs, create back button
+        if (hasTabs) {
+            const prevButton = document.createElement("button");
+            prevButton.setAttribute("type", "button");
+            prevButton.setAttribute("id", `${header}PrevBtn`);
+            prevButton.classList.add("btn", "btn-secondary", "mt-3");
+            prevButton.textContent = "Previous";
+
+            // add button to array and container
+            floatRightDiv.appendChild(prevButton);
+            navigationButtons.push(prevButton);
+
+            // change text of continue/submit button to "Next
+            nextButton.textContent = "Next";
+        }
+
+        // add button to array and container
+        navigationButtons.push(nextButton);
         floatRightDiv.appendChild(nextButton);
 
+        // append button container to parent container
         overflowDiv.appendChild(floatRightDiv);
-
         parent.appendChild(overflowDiv);
 
-        const navigationButtons = [prevButton, nextButton];
+        if (hasTabs) { // TODO: double hasTabs if statement
+            // create event handler function for navigation button clicks
+            const handleNavigationButtonClick = (event) => {
+                const directionID = event.target.id === "truckNextBtn" ? 1 : -1;
+                this.nextPrev(directionID);
+            };
 
-        const handleNavigationButtonClick = (event) => {
-            const directionID = event.target.id === "nextBtn" ? 1 : -1;
-            this.nextPrev(directionID);
-        };
-
-        navigationButtons.forEach((navigationButton) => {
-            navigationButton.addEventListener("click", handleNavigationButtonClick);
-        });
+            // add event listener to each navigation button
+            navigationButtons.forEach((navigationButton) => {
+                navigationButton.addEventListener("click", handleNavigationButtonClick);
+            });
+        }
     }
 
     createStepIndicators(amountOfSteps, parent) {
@@ -191,15 +238,38 @@ export default class FormBuilder {
         parent.appendChild(container);
     }
 
+    addDescriptiveText(parent) {
+        const div = document.createElement("div");
+        div.classList.add("text-center");
+
+        const h3 = document.createElement("h3");
+        h3.setAttribute("id", "temp");
+
+        const h5a = document.createElement("h5");
+        h5a.setAttribute("id", "description");
+
+        h3.appendChild(h5a);
+
+        const h5b = document.createElement("h5");
+        h5b.setAttribute("id", "windspeed");
+
+        div.appendChild(h3);
+        div.appendChild(h5b);
+
+        parent.appendChild(div);
+    }
 
     showTab(tabIndex) {
-
         const tabs = document.getElementsByClassName("tab");
+        // console.log(tabs);
+        // console.log(tabIndex);
+        // console.log(tabs[tabIndex]);
+        // console.log("----------------------------------");
         tabs[tabIndex].style.display = "block";
 
         // fix Previous/Next buttons
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
+        const prevBtn = document.getElementById("truckPrevBtn");
+        const nextBtn = document.getElementById("truckNextBtn");
 
         prevBtn.style.display = (tabIndex == 0) ? "none" : "inline";
         nextBtn.innerHTML = (tabIndex == tabs.length - 1) ? "Submit" : "Next";
