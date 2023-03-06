@@ -5,5 +5,6 @@ export default class StorageHall {
 
     updateStorage(newItem) {
         this.hallArray.push(newItem);
+        localStorage.setItem('storageHall', JSON.stringify(this.hallArray));
     }
 }

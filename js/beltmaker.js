@@ -19,6 +19,7 @@ export default class BeltMaker {
         this.beltcounter1 = 0;
         this.beltcounter2 = 3;
         this.storage = new StorageHall();
+        this.truckContentArray = new Array();
     }
 
     addBelt(currentHall) {
@@ -67,16 +68,17 @@ export default class BeltMaker {
             beltRow.appendChild(newBelt);
             beltRow.appendChild(buffer);
 
-            let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter);
+            let truckContent = TruckGenerator.generateTruck(beltRow, beltcounter, this.truckContentArray);
+            this.truckContentArray.push(truckContent);
 
             beltstart.addEventListener('click', (event) => {
-                restart(beltcounter, beltItem, truckContent, this.storage);
+                restart(beltcounter, beltItem, truckContent, this.storage, this.truckContentArray);
                 beltstart.disabled = true;
                 beltstop.disabled = false;
             });
 
             beltpanel.appendChild(beltRow);
-            animate(beltcounter, beltItem, truckContent, this.storage);
+            animate(beltcounter, beltItem, truckContent, this.storage, this.truckContentArray);
             this[`beltcounter${currentHall}`]++;
         }
     }

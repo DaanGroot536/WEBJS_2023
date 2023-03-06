@@ -1,24 +1,23 @@
 import { animate, stop } from "./animation.js";
 import { drawTruckContent } from "./View/truckContentView.js";
-import ImageMaker from "./imagemaker.js";
 
-export function checkTruckContent(truckContent, truckID) {
+export function checkTruckContent(truckContent, truckID, truckContentArray) {
     let truck = document.getElementById("truck" + truckID);
     if (truckContent.isEmptied) {
         truck.style.display = 'none';
         stop(truckID);
-        startBeltAgain(truckContent, truckID);
+        startBeltAgain(truckContent, truckID, truckContentArray);
     }
 
 }
 
-function startBeltAgain(truckContent, truckID) {
+function startBeltAgain(truckContent, truckID, truckContentArray) {
     let storedTruck = JSON.parse(localStorage.getItem(`truck${truckID}`));
     let truckDiv = document.getElementById(`truck${truckID}`);
     setTimeout(function () {
         truckDiv.style.display = 'block';
         truckDiv.innerHTML = '';
-        drawTruckContent(truckDiv, truckContent);
+        drawTruckContent(truckDiv, truckContent, truckID, truckContentArray);
         let beltItem = document.getElementById(`package${truckID}`);
         truckContent.isEmptied = false;
         animate(truckID, beltItem, truckContent);

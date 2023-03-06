@@ -1,4 +1,6 @@
-export function drawTruckContent(targetElement, truckContent) {
+import { makeDropzone } from "../draganddrop.js";
+
+export function drawTruckContent(targetElement, truckContent, truckID, truckContentArray) {
     const RectSize = 28;
     const rectColors = [
         "white",
@@ -15,6 +17,8 @@ export function drawTruckContent(targetElement, truckContent) {
     canvas.height = (truckContent.contentArray.length * RectSize) + 10;
     targetElement.appendChild(canvas);
     canvas.className = 'testTruck';
+    canvas.id = `truck${truckID}`;
+    makeDropzone(canvas, truckContentArray);
     let ctx = canvas.getContext('2d');
 
     for (let i = 0; i < truckContent.contentArray.length; i++) {

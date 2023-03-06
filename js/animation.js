@@ -11,7 +11,7 @@ for (let i = 0; i < 6; i++) {
     positions[i] = 0;
 }
 
-export function animate(beltcounter, beltItem, truckContent, storageHall) {
+export function animate(beltcounter, beltItem, truckContent, storageHall, truckContentArray) {
     const position = positions[beltcounter];
     const item = position !== 0 ? position : 0;
     localStorage.setItem(`package${beltcounter}`, item);
@@ -24,14 +24,14 @@ export function animate(beltcounter, beltItem, truckContent, storageHall) {
     localStorage.setItem(`shape${beltcounter}`, JSON.stringify(tetrisShape));
     localStorage.setItem(`package${beltcounter}`, 0);
     localStorage.setItem(`moving${beltcounter}`, true);
-    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall);
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall, truckContentArray);
 }
 
-export function restart(beltcounter, beltItem, truckContent, storageHall) {
-    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall);
+export function restart(beltcounter, beltItem, truckContent, storageHall, truckContentArray) {
+    intervals[beltcounter] = setInterval(move, 10, beltcounter, beltItem, truckContent, storageHall, truckContentArray);
 }
 
-function move(beltcounter, beltItem, truckContent, storageHall) {
+function move(beltcounter, beltItem, truckContent, storageHall, truckContentArray) {
     const node = document.getElementById(`package${beltcounter}`);
     let currentPosition = parseInt(localStorage.getItem(`package${beltcounter}`));
     if (currentPosition == screen.width * 0.45) {
@@ -54,8 +54,8 @@ function move(beltcounter, beltItem, truckContent, storageHall) {
         let newShape = new TetrisShape(rnd);
         localStorage.setItem(`shape${beltcounter}`, JSON.stringify(newShape));
         drawTetrisShape(beltItem, newShape, beltcounter);
-        drawTruckContent(truckDiv, truckContent);
-        checkTruckContent(truckContent, beltcounter);
+        drawTruckContent(truckDiv, truckContent, beltcounter, truckContentArray);
+        checkTruckContent(truckContent, beltcounter, truckContentArray);
         if (truckContent.isEmptied) {
             beltItem.innerHTML = '';
         }
