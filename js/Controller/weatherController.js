@@ -18,7 +18,7 @@ class weatherController {
         const inputField = document.getElementById("weatherForm")
         inputField.addEventListener("keydown", function(e) {
             if (e.key === "Enter") {
-              e.preventDefault();
+              e.preventDefault(); // disable enter key
             }
           });
 
@@ -28,14 +28,18 @@ class weatherController {
     }
 
     getLocalWeather() {
-
         const city = this.cityInput.value;
+
+        if (city.trim() === '') {
+            this.errorMessageElement.textContent = "Please enter a city name";
+            this.errorMessageElement.classList.add("active");
+            return;
+        }
 
         WeatherModel.fetchWeather(city)
             .then((weatherData) => {
                 this.showWeather(weatherData);
 
-                
                 // hide error
                 this.errorMessageElement.textContent = "";
                 this.errorMessageElement.classList.remove("active");
@@ -43,14 +47,16 @@ class weatherController {
             .catch((error) => {
                 // show error
                 this.errorMessageElement.classList.add("active");
-                this.errorMessageElement.textContent = error;
+                this.errorMessageElement.textContent = "City not found";
                 
             });
     }
 
     showWeather(weatherData) {
+        // disable trucks if needed
         checkWeather(weatherData);
-        
+
+        // update weather elements
         this.descriptionElement.textContent = `Weather: ${weatherData.description}`;
         this.tempElement.textContent = `${weatherData.celsius}°C`;
         this.windElement.textContent = `Windspeed: ${weatherData.wind}`;
