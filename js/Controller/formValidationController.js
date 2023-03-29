@@ -68,7 +68,7 @@ export default class FormValidator {
                 }
                 break;
             case "width":
-                if (value <= this.MIN_WIDTH || value > this.MAX_WIDTH) {
+                if (value < this.MIN_WIDTH || value > this.MAX_WIDTH) {
                     errorMessage = `Entered value must be between ${this.MIN_WIDTH} and ${this.MAX_WIDTH}.`;
                 } else if (value <= parseInt(document.querySelector("#length").value)) {
                     errorMessage = "Width must be higher than length.";
